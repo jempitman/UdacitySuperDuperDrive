@@ -11,9 +11,11 @@ import org.springframework.boot.web.server.LocalServerPort;
 class CloudStorageApplicationTests {
 
 	@LocalServerPort
-	private int port;
+	public int port;
 
 	private WebDriver driver;
+
+	private String baseURL;
 
 	@BeforeAll
 	static void beforeAll() {
@@ -23,6 +25,7 @@ class CloudStorageApplicationTests {
 	@BeforeEach
 	public void beforeEach() {
 		this.driver = new ChromeDriver();
+		baseURL = baseURL = ("http://localhost:" + port);
 	}
 
 	@AfterEach
@@ -34,8 +37,42 @@ class CloudStorageApplicationTests {
 
 	@Test
 	public void getLoginPage() {
-		driver.get("http://localhost:" + this.port + "/login");
+		driver.get(baseURL + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
 	}
+
+	@Test
+	public void testUserSignupLogin(){
+
+		String firstName = "Jeremy";
+		String lastName = "Pitman";
+		String userName = "jpit";
+		String password = "Jem123";
+
+		driver.get(baseURL + "/signup");
+
+		SignupPage signup = new SignupPage(driver);
+		signup.signup(firstName, lastName, userName, password);
+
+		//Assertions.assertEquals("Sign Up", driver.getTitle());
+
+		LoginPage login = new LoginPage(driver);
+		login.login(userName,password);
+
+		//Assertions.assertEquals("Login", driver.getTitle());
+
+
+		try {
+			//attempt to access invalid page below
+
+			Assertions.fail("Shouldn't happen");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Succeeded");
+		}
+
+
+	}
+
 
 }
