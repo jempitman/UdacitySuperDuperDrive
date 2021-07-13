@@ -14,18 +14,26 @@ public class LoginTest extends SignupTest{
         Assertions.assertEquals("Login", driver.getTitle());
     }
 
-    /*
+
     @Test
     public void loginOK(){
+        driver.get(baseURL + "/login");
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login("username", "password");
-        Assertions.assertEquals("Home", driver.getTitle());
+
+        HomePage homePage = new HomePage(driver);
+        System.out.println("Landed on Home page");
+        //homePage.logout();
+        //Assertions.assertEquals("You have successfully logged out", loginPage.displayLogoutMessage());
 
 
 
+
+        //driver.get(baseURL + "/home");
+
+        //Assertions.assertEquals("Home", driver.getTitle());
+        //Assertions.assertEquals("NO LOGIN ERROR", loginPage.displayLoginErrorMessage());
     }
-
-     */
 
 
 

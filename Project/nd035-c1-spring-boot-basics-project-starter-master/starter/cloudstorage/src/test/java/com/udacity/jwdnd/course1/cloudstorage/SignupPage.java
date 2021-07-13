@@ -18,30 +18,30 @@ public class SignupPage {
     }
 
     //capture inputFirstName
-    @FindBy(css = "#inputFirstName")
+    @FindBy(id = "inputFirstName")
     private WebElement inputFirstName;
 
     //capture inputLastName text field
-    @FindBy(css= "#inputLastName")
+    @FindBy(id= "inputLastName")
     private WebElement inputLastName;
 
     //capture inputUserName text field
-    @FindBy(css = "#inputUsername")
+    @FindBy(id = "inputUsername")
     private WebElement inputUserName;
 
     //capture inputPassword text field
-    @FindBy(css = "#inputPassword")
+    @FindBy(id = "inputPassword")
     private WebElement inputPassword;
 
     //capture signUp button
-    @FindBy(css = "#submit-button")
+    @FindBy(id = "submit-button")
     private WebElement submitButton;
 
-    @FindBy(id="signupError")
-    private WebElement error;
+    @FindBy(id="error-msg")
+    private WebElement errorMsg;
 
-    @FindBy(id="successfulSignup")
-    private WebElement success;
+    @FindBy(id="success-msg")
+    private WebElement successMsg;
 
     public void signup(String firstName, String lastName, String userName, String password) {
 
@@ -62,11 +62,11 @@ public class SignupPage {
     }
 
     public boolean isSuccess(){
-        return success != null;
+        return successMsg != null;
     }
 
     public boolean isError(){
-        return error != null;
+        return errorMsg != null;
     }
 
 }

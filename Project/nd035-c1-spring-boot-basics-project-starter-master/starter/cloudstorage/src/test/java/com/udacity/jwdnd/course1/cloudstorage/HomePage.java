@@ -17,10 +17,7 @@ public class HomePage {
         this.javascriptExecutor = (JavascriptExecutor) driver;
     }
 
-
-
-
-    @FindBy(id="logout-button")
+    @FindBy(id="logout")
     private WebElement logoutButton;
 
 

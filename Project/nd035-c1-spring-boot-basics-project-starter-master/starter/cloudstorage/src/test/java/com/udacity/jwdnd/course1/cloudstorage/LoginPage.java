@@ -17,24 +17,27 @@ public class LoginPage {
         this.javascriptExecutor = (JavascriptExecutor) driver;
     }
 
-    @FindBy(css="#inputUsername")
+    @FindBy(id="inputusername")
     private WebElement inputUsername;
 
-    @FindBy (css="#inputPassword")
+    @FindBy (id= "inputpassword")
     private WebElement inputPassword;
 
-    @FindBy (css="#submit-button")
+    @FindBy (id="submit-button")
     private WebElement submitButton;
 
     @FindBy(id="error-msg")
-    private WebElement error;
+    private WebElement errorMsg;
 
     @FindBy(id="logout-msg")
-    private WebElement logout;
+    private WebElement logoutMsg;
+
+    @FindBy(id="signupLink")
+    private WebElement signupLink;
 
 
     public void login(String username, String password) {
-        System.out.println("Entering username details");
+        //System.out.println("Entering username details");
 
 
         javascriptExecutor.executeScript("arguments[0].value='" + username +
@@ -46,16 +49,31 @@ public class LoginPage {
         System.out.println("clicking Login button");
         javascriptExecutor.executeScript("arguments[0].click();", submitButton);
 
-        System.out.println(">>> LoginPage: logging in ...");
+        //System.out.println(">>> LoginPage: logging in ...");
 
     }
 
-    public boolean isError(){
-        return error != null;
+    public String displayLoginErrorMessage(){
+        if(displayLoginErrorMessage() != null) {
+            return errorMsg.getText();
+        }else {
+            return "NO LOGIN ERROR";
+        }
     }
 
-    public boolean isLogout(){
-        return logout != null;
+
+    /*
+    public boolean isSuccess(){
+        if
+    }
+
+     */
+
+
+
+
+    public String displayLogoutMessage(){
+        return logoutMsg.getText();
     }
 
 
