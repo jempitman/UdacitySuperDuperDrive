@@ -8,6 +8,15 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SignupPage {
 
+    private JavascriptExecutor javascriptExecutor;
+    private WebDriver driver;
+
+    public SignupPage(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        this.javascriptExecutor = (JavascriptExecutor) driver;
+    }
+
     //capture inputFirstName
     @FindBy(css = "#inputFirstName")
     private WebElement inputFirstName;
@@ -28,33 +37,11 @@ public class SignupPage {
     @FindBy(css = "#submit-button")
     private WebElement submitButton;
 
+    @FindBy(id="signupError")
+    private WebElement error;
 
-    private JavascriptExecutor javascriptExecutor;
-
-    public SignupPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
-        this.javascriptExecutor = (JavascriptExecutor) driver;
-    }
-
-    public String getFirstName(){
-        return inputFirstName.getText();
-    }
-
-    public String getLastName(){
-        return inputLastName.getText();
-    }
-
-    public String getUserName(){
-        return inputUserName.getText();
-    }
-
-    public String getPassword(){
-        return inputPassword.getText();
-    }
-
-    public void signUpClick(){
-        submitButton.click();
-    }
+    @FindBy(id="successfulSignup")
+    private WebElement success;
 
     public void signup(String firstName, String lastName, String userName, String password) {
 
@@ -72,6 +59,14 @@ public class SignupPage {
 
         System.out.println(">>> SignupPage: signed up ...");
 
+    }
+
+    public boolean isSuccess(){
+        return success != null;
+    }
+
+    public boolean isError(){
+        return error != null;
     }
 
 }

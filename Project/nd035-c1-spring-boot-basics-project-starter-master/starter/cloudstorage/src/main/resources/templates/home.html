@@ -13,7 +13,7 @@
             <div id="logoutDiv">
                 <form action="#" th:action="@{/home}" th:object="${homeForm}" method="POST">
                     <button type="submit" class="btn btn-secondary float-right"
-                            th:formaction="@{/myLogout}">Logout</button>
+                            th:formaction="@{/myLogout}" id = "logout-button">Logout</button>
                 </form>
             </div>
             <div id="contentDiv" style="clear: right;">
