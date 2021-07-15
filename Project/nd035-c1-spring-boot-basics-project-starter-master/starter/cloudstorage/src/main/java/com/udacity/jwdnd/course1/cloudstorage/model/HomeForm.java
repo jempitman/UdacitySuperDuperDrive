@@ -2,43 +2,27 @@ package com.udacity.jwdnd.course1.cloudstorage.model;
 
 public class HomeForm {
 
+    private Boolean logout;
+    private Boolean logoutError;
 
-    private String username;
-    private Integer userid;
-    private String noteTitle;
-    private String noteDescription;
-
-    public String getUsername() {
-        return username;
+    public HomeForm(Boolean logout, Boolean logoutError) {
+        this.logout = logout;
+        this.logoutError = logoutError;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public Boolean getLogout() {
+        return logout;
     }
 
-    public Integer getUserid(){
-        return userid;
+    public void setLogout(Boolean logout) {
+        this.logout = logout;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public Boolean getLogoutError() {
+        return logoutError;
     }
 
-    public String getNoteTitle() {
-        return noteTitle;
+    public void setLogoutError(Boolean logoutError) {
+        this.logoutError = logoutError;
     }
-
-    public void setNoteTitle(String noteTitle) {
-        this.noteTitle = noteTitle;
-    }
-
-    public String getNoteDescription() {
-        return noteDescription;
-    }
-
-    public void setNoteDescription(String noteDescription) {
-        this.noteDescription = noteDescription;
-    }
-
-
 }

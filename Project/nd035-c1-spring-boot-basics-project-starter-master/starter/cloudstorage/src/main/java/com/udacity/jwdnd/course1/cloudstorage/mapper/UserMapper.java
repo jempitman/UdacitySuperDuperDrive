@@ -12,8 +12,13 @@ public interface UserMapper {
     User getUser(String username);
 
 
-    @Insert("INSERT INTO USERS (username, salt, password, firstname, lastname) VALUES(#{username}, #{salt}, " +
-            "#{password}, #{firstname}, #{lastname})")
+    @Insert("INSERT INTO USERS (username, salt, password, firstname, lastname) " +
+            "VALUES(#{username}, #{salt}, #{password}, #{firstname}, #{lastname})")
     @Options(useGeneratedKeys = true, keyProperty = "userid")
     int createUser(User user);
+
+    @Select("SELECT username FROM USERS WHERE userID=#{userid}")
+    public String getUsernameId(Integer userid);
+
+
 }

@@ -1,44 +1,49 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.HomeForm;
-import com.udacity.jwdnd.course1.cloudstorage.services.HomeService;
-import org.springframework.security.core.Authentication;
+import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
+import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+
 public class HomeController {
 
-    private HomeService homeService;
+    private NoteService noteService;
+    private UserService userService;
 
-    public HomeController (HomeService homeService){
+    public HomeController (NoteService noteService, UserService userService){
         System.out.println("Creating HomeController");
-        this.homeService = homeService;
+        this.noteService = noteService;
+        this.userService = userService;
     }
 
     @GetMapping
-    public String getHomePage(HomeForm homeForm, Model model){
+    @RequestMapping("/home")
+    public String getHomePage(Model model){
+
+        //Fetching userid credentials from database
+        //System.out.println("Fetching userid credentials from db");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        int userid = userService.getUser(username).getUserid();
+        //System.out.println("Found userid: " + userid);
+
+        //updating list of notes shown on home page
+        if(noteService.getNotes(userid).size()>0){
+            model.addAttribute("notes", noteService.getNotes(userid));
+        }
+
         System.out.println("Going to home page");
-        model.addAttribute("notes", homeService.getNotes());
         return "home";
     }
 
-    @PostMapping
-    public String createNote(Authentication authentication, HomeForm homeForm, Model model){
-        homeForm.setUsername(authentication.getName());
-        this.homeService.addNote(homeForm);
-        homeForm.setNoteTitle("");
-        homeForm.setNoteDescription("");
-        model.addAttribute("notes", this.homeService.getNotes());
-        return "home";
 
 
 
-    }
+
 
 
 
