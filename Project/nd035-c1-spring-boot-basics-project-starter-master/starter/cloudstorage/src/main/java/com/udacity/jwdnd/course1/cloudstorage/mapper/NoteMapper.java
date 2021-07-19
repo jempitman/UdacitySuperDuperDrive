@@ -1,22 +1,43 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteList;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+/*
+
+ */
+
 @Mapper
 public interface NoteMapper {
 
-    @Select("SELECT * FROM NOTES WHERE noteid = #{noteid}")
-    NoteList getNote(String noteid);
+    //Return all notes belonging to a particular userid
+    @Select("SELECT * FROM NOTES WHERE userid = #{userid}")
+    public List<NoteForm> getNotes(Integer userid);
 
-    @Select("SELECT * FROM NOTES")
-    List<NoteList> getAllNotes();
 
-    @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) values (#{notetitle}, #{notedescription}, #{userid})")
+    //Add new note
+    @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) " +
+            "values (#{notetitle}, #{notedescription}, #{userid})")
     @Options(useGeneratedKeys = true, keyProperty = "noteid")
-    int createNote(NoteList note);
+    int createNote(NoteForm noteForm);
+
+    // Note deletion operation
+    @Delete("DELETE FROM NOTES WHERE noteid = #{noteid}")
+    void deleteNote(Integer noteid);
+
+    //Update and edit an existing note
+    @Update("UPDATE NOTES SET notetitle=#{notetitle}, notedescription=#{notedescription} WHERE noteid=#{noteid}")
+    void updateNote(Integer noteid);
+
+    //get note according to noteid
+    @Select("SELECT * FROM NOTES WHERE noteid=#{noteid}")
+    NoteList getNote(Integer noteId);
+
+    @Select("SELECT userid FROM NOTES WHERE noteid=#{noteid}")
+    public Integer getUserIdFromNote(Integer noteid);
 
 
 

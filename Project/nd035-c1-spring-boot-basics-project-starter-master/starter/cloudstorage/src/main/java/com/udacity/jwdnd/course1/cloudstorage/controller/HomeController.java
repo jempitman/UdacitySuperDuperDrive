@@ -2,7 +2,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +25,14 @@ public class HomeController {
     public String getHomePage(Model model){
 
         //Fetching userid credentials from database
-        //System.out.println("Fetching userid credentials from db");
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        int userid = userService.getUser(username).getUserid();
-        //System.out.println("Found userid: " + userid);
+        int userid = userService.getLoggedInUsersId();
+        System.out.println("Found userid: " + userid);
+        System.out.println("No of notes added to NOTEs db: " + noteService.getNotes(userid).size());
 
         //updating list of notes shown on home page
         if(noteService.getNotes(userid).size()>0){
             model.addAttribute("notes", noteService.getNotes(userid));
+            System.out.println("Notes added: " + noteService.getNotes(userid).size());
         }
 
         System.out.println("Going to home page");
