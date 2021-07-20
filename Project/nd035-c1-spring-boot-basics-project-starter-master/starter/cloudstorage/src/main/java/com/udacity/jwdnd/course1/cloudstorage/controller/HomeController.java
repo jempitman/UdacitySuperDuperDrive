@@ -26,8 +26,6 @@ public class HomeController {
 
         //Fetching userid credentials from database
         int userid = userService.getLoggedInUsersId();
-        System.out.println("Found userid: " + userid);
-        System.out.println("No of notes added to NOTEs db: " + noteService.getNotes(userid).size());
 
         //updating list of notes shown on home page
         if(noteService.getNotes(userid).size()>0){

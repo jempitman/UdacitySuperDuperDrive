@@ -31,14 +31,8 @@ public class NoteService {
     }
 
 
-    public void addNote(NoteForm noteForm){
-        //NoteForm newNote = new NoteForm();
-        //newNote.setUserid(homeForm.getUserid());
-        //System.out.println("Userid: " + newNote.getUserid());
-        //newNote.setNotetitle(noteForm.getNotetitle());
-        //System.out.println("Notetitle: " + newNote.getNotetitle());
-        //newNote.setNotedescription(noteForm.getNotedescription());
-        //System.out.println("Notedescription: " + newNote.getNotedescription());
+    public void createNote(NoteForm noteForm){
+
         noteMapper.createNote(noteForm);
     }
 
@@ -47,6 +41,18 @@ public class NoteService {
 
     }
 
+    public void updateNote(NoteForm noteForm){
+        noteMapper.updateNote(noteForm);
+    }
+
+    public String getUserNameForNote(Integer noteid){
+        Integer userid = noteMapper.getUserIdFromNote(noteid);
+        return userService.getUsernameForId(userid);
+    }
+
+    public boolean lookupNote(Integer noteid){
+        return noteMapper.getNote(noteid)!=null;
+    }
 
 
 

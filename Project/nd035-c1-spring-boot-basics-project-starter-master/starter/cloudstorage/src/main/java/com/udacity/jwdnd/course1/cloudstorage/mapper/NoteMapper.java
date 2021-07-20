@@ -1,7 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
-import com.udacity.jwdnd.course1.cloudstorage.model.NoteList;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -30,11 +29,11 @@ public interface NoteMapper {
 
     //Update and edit an existing note
     @Update("UPDATE NOTES SET notetitle=#{notetitle}, notedescription=#{notedescription} WHERE noteid=#{noteid}")
-    void updateNote(Integer noteid);
+    void updateNote(NoteForm noteForm);
 
     //get note according to noteid
     @Select("SELECT * FROM NOTES WHERE noteid=#{noteid}")
-    NoteList getNote(Integer noteId);
+    NoteForm getNote(Integer noteId);
 
     @Select("SELECT userid FROM NOTES WHERE noteid=#{noteid}")
     public Integer getUserIdFromNote(Integer noteid);

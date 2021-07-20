@@ -30,9 +30,13 @@
                 <span>Your note was edited successfully!</span>
                 <span>Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
-            <div th:if="${noteDeleted}" class="alert alert-danger fill-parent">
+            <div th:if="${noteDeleted}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note deleted!</h1>
                 <span>Your note was deleted successfully! Click <a th:href="@{/home}">here</a> to continue.</span>
+            </div>
+            <div th:if="${noteNotDeleted}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Note deletion failed! </h1>
+                <span>Note not found or you do not have permission to delete the selected note. Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
 
         </div>
