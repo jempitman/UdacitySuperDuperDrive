@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
-                        <button style="margin: 0.25em;" type="button" id="add-note" class="btn btn-info float-right" onclick="showNoteModal()">
+                        <button style="margin: 0.25em;" type="button" id="add-note" class="btn btn-info float-right" onclick="showNoteModal(0,'','')">
                             + Add a New Note
                         </button>
 
@@ -77,7 +77,8 @@
                                 <tbody>
                                     <tr th:each="noteForm: ${notes}">
                                         <td>
-                                            <button type="button" class="btn btn-success" >Edit</button>
+                                            <button type="button" class="btn btn-success" th:attr="note-id=${noteForm.noteid}, note-title=${noteForm.notetitle}, note-desc=${noteForm.notedescription}"
+                                                    th:onclick="showNoteModal(this.getAttribute('note-id'), this.getAttribute('note-title'), this.getAttribute('note-desc'));">Edit</button>
                                             <a class="btn btn-danger" th:href="@{/result/notes/delete(noteid=${noteForm.noteid})}" th:object="${noteDelete}">Delete</a>
                                         </td>
                                         <th scope="row" th:text="${noteForm.notetitle}" class="noteTitle">Example Note Title</th>
@@ -97,8 +98,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" th:action="@{/result/notes/}" th:object="${newNote}" method="POST">
-                                            <input type="hidden" name="noteId" id="note-id">
+                                        <form action="#" th:action="@{/result/notes/}" th:object="${noteData}" method="POST">
+                                            <input type="hidden" name="noteid" id="note-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
                                                 <input type="text" name= "notetitle" class="form-control" id="note-title" maxlength="20" required>
@@ -194,7 +195,7 @@
         <script type="text/javascript">
             // For opening the note modal
             function showNoteModal(noteId, noteTitle, noteDescription) {
-                $('#note-id').val(noteId ? noteId : '');
+                $('#note-id').val(noteId ? noteId : '0');
                 $('#note-title').val(noteTitle ? noteTitle : '');
                 $('#note-description').val(noteDescription ? noteDescription : '');
                 $('#noteModal').modal('show');
@@ -207,6 +208,14 @@
                 $('#credential-username').val(username ? username : '');
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
+            }
+
+            // For editing the note modal
+            function editNoteModal(note) {
+                $('#editNote-id').val(noteId ? noteId : '');
+                $('#editNote-title').val(noteTitle ? noteTitle : '');
+                $('#editNote-description').val(noteDescription ? noteDescription : '');
+                $('#noteModal').modal('show');
             }
         </script>
     </body>
