@@ -14,26 +14,46 @@ public class LoginTest extends SignupTest{
         Assertions.assertEquals("Login", driver.getTitle());
     }
 
-
+    //Test that unauthorized page requests redirect to the login page
     @Test
-    public void loginOK(){
+    public void loginRedirect(){
+        driver.get(baseURL + "/home");
+        Assertions.assertEquals(baseURL + "/login", driver.getCurrentUrl());
+
+        driver.get(baseURL + "/results");
+        Assertions.assertEquals(baseURL + "/login", driver.getCurrentUrl());
+    }
+
+
+    //Login, verify home page is available, then logout and verify home page is no longer available
+    @Test
+    public void loginOK() throws InterruptedException{
+        driver.get(baseURL + "/signup");
+        SignupPage signupPage = new SignupPage(driver);
+        signupPage.fillSignup("firstName", "lastName", "userName", "password");
+        Thread.sleep(1000);
+
+        signupPage.clickSignup();
+
         driver.get(baseURL + "/login");
+
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.login("username", "password");
+        loginPage.fillLogin("userName", "password");
+        loginPage.clickLogin();
+
+        Thread.sleep(1000);
+
+        Assertions.assertEquals("Home", driver.getTitle());
 
         HomePage homePage = new HomePage(driver);
-        System.out.println("Landed on Home page");
-        //homePage.logout();
-        //Assertions.assertEquals("You have successfully logged out", loginPage.displayLogoutMessage());
+        homePage.logout();
 
+        Thread.sleep(1000);
+        Assertions.assertEquals("Login", driver.getTitle());
 
-
-
-        //driver.get(baseURL + "/home");
-
-        //Assertions.assertEquals("Home", driver.getTitle());
-        //Assertions.assertEquals("NO LOGIN ERROR", loginPage.displayLoginErrorMessage());
     }
+
+
 
 
 

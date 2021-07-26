@@ -17,14 +17,14 @@ public class LoginPage {
         this.javascriptExecutor = (JavascriptExecutor) driver;
     }
 
-    @FindBy(id="inputusername")
+    @FindBy(id="inputUsername")
     private WebElement inputUsername;
 
-    @FindBy (id= "inputpassword")
+    @FindBy (id= "inputPassword")
     private WebElement inputPassword;
 
     @FindBy (id="submit-button")
-    private WebElement submitButton;
+    private WebElement loginButton;
 
     @FindBy(id="error-msg")
     private WebElement errorMsg;
@@ -32,13 +32,9 @@ public class LoginPage {
     @FindBy(id="logout-msg")
     private WebElement logoutMsg;
 
-    @FindBy(id="signupLink")
-    private WebElement signupLink;
 
-
-    public void login(String username, String password) {
+    public void fillLogin(String username, String password) {
         //System.out.println("Entering username details");
-
 
         javascriptExecutor.executeScript("arguments[0].value='" + username +
                 "';", inputUsername);
@@ -46,12 +42,13 @@ public class LoginPage {
         javascriptExecutor.executeScript("arguments[0].value='" + password +
                 "';", inputPassword);
 
-        System.out.println("clicking Login button");
-        javascriptExecutor.executeScript("arguments[0].click();", submitButton);
-
-        //System.out.println(">>> LoginPage: logging in ...");
-
     }
+
+    public void clickLogin(){
+        System.out.println("clicking Login button");
+        javascriptExecutor.executeScript("arguments[0].click();", loginButton);
+    }
+
 
     public String displayLoginErrorMessage(){
         if(displayLoginErrorMessage() != null) {
@@ -61,14 +58,10 @@ public class LoginPage {
         }
     }
 
-
-    /*
     public boolean isSuccess(){
-        if
+        return (displayLoginErrorMessage().equals("NO LOGIN ERROR"));
+
     }
-
-     */
-
 
 
 

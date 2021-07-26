@@ -43,7 +43,7 @@ public class SignupPage {
     @FindBy(id="success-msg")
     private WebElement successMsg;
 
-    public void signup(String firstName, String lastName, String userName, String password) {
+    public void fillSignup(String firstName, String lastName, String userName, String password) {
 
 
         javascriptExecutor.executeScript("arguments[0].value='" + firstName +
@@ -55,9 +55,15 @@ public class SignupPage {
         javascriptExecutor.executeScript("arguments[0].value='" + password +
                 "';", inputPassword);
 
+    }
+
+    public void clickSignup(){
         javascriptExecutor.executeScript("arguments[0].click();", submitButton);
 
         System.out.println(">>> SignupPage: signed up ...");
+    }
+
+    public void clickLogin(){
 
     }
 

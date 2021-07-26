@@ -20,12 +20,7 @@ public class HomePage {
     @FindBy(id="logout")
     private WebElement logoutButton;
 
-
-
-
-
     public void logout(){
-        logoutButton.clear();
         javascriptExecutor.executeScript("arguments[0].click();", logoutButton);
     }
 
