@@ -58,8 +58,8 @@ public class LoginPage {
         }
     }
 
-    public boolean isSuccess(){
-        return (displayLoginErrorMessage().equals("NO LOGIN ERROR"));
+    public boolean isError(){
+        return errorMsg.getText() != "Invalid username or password";
 
     }
 

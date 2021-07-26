@@ -53,6 +53,19 @@ public class LoginTest extends SignupTest{
 
     }
 
+    @Test
+    public void failedLogin() throws InterruptedException{
+
+        driver.get(baseURL + "/home");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.fillLogin("userName", "password");
+        loginPage.clickLogin();
+
+        Thread.sleep(1000);
+
+        Assertions.assertTrue(loginPage.isError());
+    }
+
 
 
 
