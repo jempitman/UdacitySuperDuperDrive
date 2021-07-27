@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
 
     private WebDriver driver;
-    private JavascriptExecutor javascriptExecutor;
+    private final JavascriptExecutor javascriptExecutor;
 
     public LoginPage(WebDriver driver){
         this.driver = driver;
@@ -51,7 +51,7 @@ public class LoginPage {
 
 
     public String displayLoginErrorMessage(){
-        if(displayLoginErrorMessage() != null) {
+        if(isError()) {
             return errorMsg.getText();
         }else {
             return "NO LOGIN ERROR";
@@ -59,11 +59,9 @@ public class LoginPage {
     }
 
     public boolean isError(){
-        return errorMsg.getText() != "Invalid username or password";
+        return errorMsg.getText().equals("Invalid username or password");
 
     }
-
-
 
     public String displayLogoutMessage(){
         return logoutMsg.getText();

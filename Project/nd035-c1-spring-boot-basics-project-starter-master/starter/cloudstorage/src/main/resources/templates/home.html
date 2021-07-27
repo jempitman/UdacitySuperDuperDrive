@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
-                        <button style="margin: 0.25em;" type="button" id="add-note" class="btn btn-info float-right" onclick="showNoteModal(0,'','')">
+                        <button style="margin: 0.25em;" type="button" id="new-note" class="btn btn-info float-right" onclick="showNoteModal(0,'','')">
                             + Add a New Note
                         </button>
 
@@ -77,12 +77,12 @@
                                 <tbody>
                                     <tr th:each="noteForm: ${notes}">
                                         <td>
-                                            <button type="button" class="btn btn-success" th:attr="note-id=${noteForm.noteid}, note-title=${noteForm.notetitle}, note-desc=${noteForm.notedescription}"
+                                            <button type="button" class="btn btn-success" id="noteEdit" th:attr="note-id=${noteForm.noteid}, note-title=${noteForm.notetitle}, note-desc=${noteForm.notedescription}"
                                                     th:onclick="showNoteModal(this.getAttribute('note-id'), this.getAttribute('note-title'), this.getAttribute('note-desc'));">Edit</button>
-                                            <a class="btn btn-danger" th:href="@{/result/notes/delete(noteid=${noteForm.noteid})}" th:object="${noteDelete}">Delete</a>
+                                            <a class="btn btn-danger" id="noteDelete" th:href="@{/result/notes/delete(noteid=${noteForm.noteid})}" th:object="${noteDelete}">Delete</a>
                                         </td>
-                                        <th scope="row" th:text="${noteForm.notetitle}" class="noteTitle">Example Note Title</th>
-                                        <td th:text="${noteForm.notedescription}" class="noteDescription">Example Note Description </td>
+                                        <th scope="row" th:text="${noteForm.notetitle}" class="listNoteTitle">Example Note Title</th>
+                                        <td th:text="${noteForm.notedescription}" class="listNoteDescription">Example Note Description </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
+                                        <button type="button" id="add-note" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
                                     </div>
                                 </div>
                             </div>
