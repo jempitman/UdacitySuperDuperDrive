@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,41 +12,33 @@ public class NoteTest extends LoginTest {
 
     @Test
     public void addNewNote() throws InterruptedException{
-        driver.get(baseURL + "/signup");
-        SignupPage signupPage = new SignupPage(driver);
-        signupPage.fillSignup("firstName", "lastName", "userName", "password");
-        signupPage.clickSignup();
-        Thread.sleep(1000);
 
-        driver.get(baseURL + "/login");
 
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.fillLogin("userName", "password");
-        loginPage.clickLogin();
-        Thread.sleep(1000);
+        login("FirstName", "LastName", "UserName", "password");
 
-        NoteTab noteTab= new NoteTab(driver);
+        HomePage homePage= new HomePage(driver, 1);
+        homePage.noteTabNavigation();
+        String noteTitle = "Test";
+        String noteDescription = "This is a test";
 
-        noteTab.noteTabNavigation();
+        createNote(noteTitle, noteDescription, homePage);
 
-        String noteTitle = "Lorem ipsum";
-        String noteDescription = "dolor sit amet, consectetur adipiscing elit, " +
-                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        homePage.noteTabNavigation();
 
-        noteTab.fillNewNote(noteTitle, noteDescription);
+        Note note = homePage.getNoteList();
 
-        noteTab.clickAddNewNote();
+        Assertions.assertEquals(noteTitle, note.getNotetitle());
+        Assertions.assertEquals(noteDescription, note.getNotedescription());
+    }
 
-        Thread.sleep(1000);
-
-        driver.get(baseURL + "/home");
-
-        noteTab.viewNotes();
-
-        Thread.sleep(1000);
-
-        Assertions.assertEquals(baseURL + "/home", driver.getCurrentUrl());
-
+    //method to perform basic note creation operations
+    private void createNote(String noteTitle, String noteDescription, HomePage homePage) throws InterruptedException{
+        homePage.noteTabNavigation();
+        homePage.clickAddNewNote();
+        homePage.fillNewNote(noteTitle, noteDescription);
+        homePage.clickSubmitNote();
+        ResultPage resultPage = new ResultPage(driver, 1000);
+        resultPage.clickNoteCreationSuccess();
 
     }
 

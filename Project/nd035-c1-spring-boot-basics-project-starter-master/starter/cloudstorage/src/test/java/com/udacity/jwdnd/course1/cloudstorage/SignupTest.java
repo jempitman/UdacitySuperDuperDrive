@@ -24,7 +24,7 @@ public class SignupTest {
     @BeforeEach
     public void beforeEach() {
         this.driver = new ChromeDriver();
-        baseURL = baseURL = ("http://localhost:" + this.port);
+        baseURL = ("http://localhost:" + this.port);
     }
 
     @AfterEach
