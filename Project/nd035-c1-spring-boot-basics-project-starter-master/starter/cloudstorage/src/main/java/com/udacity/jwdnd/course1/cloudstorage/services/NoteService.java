@@ -36,7 +36,9 @@ public class NoteService {
     }
 
 
-    public void postNote(NoteForm noteForm){
+    public boolean postNote(NoteForm noteForm){
+        //flag to check if a new Note is being created.
+        boolean newNote;
         Note note = new Note();
 
         note.setNotetitle(noteForm.getNotetitle());
@@ -45,11 +47,13 @@ public class NoteService {
 
         if(noteForm.getNoteid()==0){
             noteMapper.createNote(note);
+            newNote = true;
         } else{
             note.setNoteId(noteForm.getNoteid());
             noteMapper.updateNote(note);
+            newNote = false;
         }
-
+        return newNote;
     }
 
     public void deleteNote(Integer noteid){

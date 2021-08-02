@@ -19,13 +19,13 @@
                 <span>Your changes were not saved. Click <a th:href="@{/home}" id="linkFail">here</a> to continue.</span>
             </div>
 
-            <!--note error handling-->
+            <!--note result handling-->
             <div th:if="${result == 'noteCreated'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note created!</h1>
                 <span>Your note was created successfully!</span>
                 <span>Click <a th:href="@{/home}" id="nCreationSuccess">here</a> to continue.</span>
             </div>
-            <div th:if="${noteUpdated}" class="alert alert-success fill-parent">
+            <div th:if="${result == 'noteUpdated'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note edited!</h1>
                 <span>Your note was edited successfully!</span>
                 <span>Click <a th:href="@{/home}">here</a> to continue.</span>

@@ -24,10 +24,14 @@ public class NoteController {
     @PostMapping("add-note")
     public String postNote(@ModelAttribute("newNote") NoteForm noteForm, Model model){
 
+        boolean newNote = noteService.postNote(noteForm);
 
-        noteService.postNote(noteForm);
+        if (newNote){
+            model.addAttribute("result", "noteCreated");
+        } else{
+            model.addAttribute("result", "noteUpdated");
+        }
 
-        model.addAttribute("result", "noteCreated");
         model.addAttribute("notes", noteService.getNotes());
         //model.addAttribute("result", "success");
 
@@ -36,12 +40,12 @@ public class NoteController {
     }
 
     @GetMapping(value = "/get-note/{noteid}")
-    public NoteForm getNote(@RequestParam("noteid") Integer noteid){
+    public NoteForm getNote(@PathVariable("noteid") Integer noteid){
         return noteService.getNote(noteid);
     }
 
     @GetMapping(value = "/delete-note/{noteid}")
-    public String deleteNote(@RequestParam("noteid") Integer noteid, Model model){
+    public String deleteNote(@PathVariable("noteid") Integer noteid, Model model){
         System.out.println("Selected noteId is " + noteid);
 
         String usernameForNote = noteService.getUserNameForNote(noteid);
