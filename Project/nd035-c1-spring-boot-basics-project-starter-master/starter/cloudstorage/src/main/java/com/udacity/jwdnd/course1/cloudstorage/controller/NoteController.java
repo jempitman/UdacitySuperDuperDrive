@@ -54,9 +54,9 @@ public class NoteController {
 
         if (noteService.lookupNote(noteid) && usernameForNote.equals(loggedInUsername)){
             noteService.deleteNote(noteid);
-            model.addAttribute("noteDeleted", true);
+            model.addAttribute("result", "noteDeleted");
         } else{
-            model.addAttribute("noteNotDeleted", true);
+            model.addAttribute("result", "noteNotDeleted");
         }
 
         return "result";
