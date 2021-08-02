@@ -1,17 +1,19 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
-import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
-import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/result")
 public class ResultController {
 
+    @GetMapping()
+    public String resultView(){
+        return "result";
+    }
+
+    /*
     private NoteService noteService;
     private UserService userService;
 
@@ -64,6 +66,7 @@ public class ResultController {
         return "result";
     }
 
+    /*
     @GetMapping("notes/update")
     public String updateNote(@RequestParam("noteid") Integer noteid, Model model, NoteForm noteForm){
         System.out.println("Selected noteId is " + noteid);
@@ -79,12 +82,7 @@ public class ResultController {
         return "result";
     }
 
-
-
-
-
-
-
+     */
 
 
 }

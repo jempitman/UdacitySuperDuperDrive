@@ -10,7 +10,7 @@
     </head>
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
-            <div th:if="${success}" class="alert alert-success fill-parent">
+            <div th:if="${result == 'success'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Success</h1>
                 <span>Your changes were successfully saved. Click <a th:href="@{/home}" id = "linkSuccess">here</a> to continue.</span>
             </div>
@@ -20,10 +20,10 @@
             </div>
 
             <!--note error handling-->
-            <div th:if="${noteCreated}" class="alert alert-success fill-parent">
+            <div th:if="${result == 'noteCreated'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note created!</h1>
                 <span>Your note was created successfully!</span>
-                <span>Click <a th:href="@{/home}">here</a> to continue.</span>
+                <span>Click <a th:href="@{/home}" id="nCreationSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${noteUpdated}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note edited!</h1>
