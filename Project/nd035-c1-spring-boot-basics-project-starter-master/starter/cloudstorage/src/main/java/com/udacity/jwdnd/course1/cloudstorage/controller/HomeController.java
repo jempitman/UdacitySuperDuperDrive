@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
+import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -18,22 +19,27 @@ public class HomeController {
     private final NoteService noteService;
     private final UserService userService;
     private final CredentialService credentialService;
+    private final EncryptionService encryptionService;
 
 
-    public HomeController (NoteService noteService, UserService userService, CredentialService credentialService){
+    public HomeController (NoteService noteService, UserService userService, CredentialService credentialService,
+                           EncryptionService encryptionService){
         System.out.println("Creating HomeController");
         this.noteService = noteService;
         this.userService = userService;
         this.credentialService = credentialService;
+        this.encryptionService = encryptionService;
     }
 
     @GetMapping
     public String getHomePage(@ModelAttribute("newNote")NoteForm noteForm,
                               @ModelAttribute("newCredential")CredentialForm credentialForm,
+                              EncryptionService encryptionService,
                               Model model){
 
         model.addAttribute("notes", noteService.getNotes());
         model.addAttribute("credentials", credentialService.getCredentials());
+        model.addAttribute("encryptionService",encryptionService);
 
         //Fetching userid credentials from database
         int userid = userService.getLoggedInUsersId();
