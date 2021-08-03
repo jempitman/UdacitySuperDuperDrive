@@ -45,7 +45,7 @@ public class LoginTest extends SignupTest{
 
         Assertions.assertEquals("Home", driver.getTitle());
 
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(driver, 1);
         homePage.logout();
 
         Thread.sleep(1000);
@@ -64,6 +64,22 @@ public class LoginTest extends SignupTest{
         Thread.sleep(1000);
 
         Assertions.assertTrue(loginPage.isError());
+    }
+
+    public void login(String firstName, String lastName, String userName, String password) throws InterruptedException{
+        driver.get(baseURL + "/signup");
+        SignupPage signupPage = new SignupPage(driver);
+        signupPage.fillSignup(firstName, lastName, userName, password);
+        signupPage.clickSignup();
+        Thread.sleep(1000);
+
+        driver.get(baseURL + "/login");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.fillLogin(userName, password);
+        loginPage.clickLogin();
+        Thread.sleep(1000);
+
     }
 
 

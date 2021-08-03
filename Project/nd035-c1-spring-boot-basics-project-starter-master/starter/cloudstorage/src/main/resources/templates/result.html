@@ -28,7 +28,7 @@
             <div th:if="${result == 'noteUpdated'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note edited!</h1>
                 <span>Your note was edited successfully!</span>
-                <span>Click <a th:href="@{/home}">here</a> to continue.</span>
+                <span>Click <a th:href="@{/home}" id="nEditSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'noteDeleted'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note deleted!</h1>

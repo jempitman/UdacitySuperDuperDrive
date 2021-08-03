@@ -47,7 +47,7 @@ public class HomePage {
     private List<WebElement> tableData;
 
     @FindBy(id="noteEdit")
-    private List<WebElement> noteEditButton;
+    private WebElement noteEditButton;
 
     @FindBy(id="noteDelete")
     private List<WebElement> noteDeleteButton;
@@ -75,6 +75,17 @@ public class HomePage {
                 "';", nDescription);
     }
 
+    public void clearNoteTitle(){
+
+        javascriptExecutor.executeScript("arguments[0].value='" + " " +
+                "';", nTitle);
+    }
+
+    public void clearNoteDescription(){
+        javascriptExecutor.executeScript("arguments[0].value='" + " " +
+                "';", nDescription);
+    }
+
     public void clickAddNewNote(){
         javascriptExecutor.executeScript("arguments[0].click();", newNoteButton);
     }
@@ -83,7 +94,7 @@ public class HomePage {
         javascriptExecutor.executeScript("arguments[0].click();", submitNoteButton);
     }
 
-    public void editNote(){
+    public void clickEditNote(){
         javascriptExecutor.executeScript("arguments[0].click();", noteEditButton);
     }
 

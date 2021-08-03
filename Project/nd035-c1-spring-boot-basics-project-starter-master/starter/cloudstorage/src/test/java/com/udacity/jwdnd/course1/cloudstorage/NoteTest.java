@@ -31,15 +31,53 @@ public class NoteTest extends LoginTest {
         Assertions.assertEquals(noteDescription, note.getNotedescription());
     }
 
+    @Test
+    public void addNoteAndEdit() throws InterruptedException{
+
+
+        login("FirstName", "LastName", "UserName", "password");
+
+        HomePage homePage= new HomePage(driver, 1);
+        homePage.noteTabNavigation();
+        String initialNoteTitle = "Test";
+        String initialNoteDescription = "This is a test";
+
+        createNote(initialNoteTitle, initialNoteDescription, homePage);
+
+        homePage.noteTabNavigation();
+
+        String updatedNoteTitle = "New test";
+        String updatedNoteDescription = "This test has been updated";
+
+        updateNote(updatedNoteTitle, updatedNoteDescription, homePage);
+
+        homePage.noteTabNavigation();
+
+        Note note = homePage.getNoteList();
+
+        Assertions.assertEquals(updatedNoteTitle, note.getNotetitle());
+        Assertions.assertEquals(updatedNoteDescription, note.getNotedescription());
+    }
+
     //method to perform basic note creation operations
     private void createNote(String noteTitle, String noteDescription, HomePage homePage) throws InterruptedException{
         homePage.noteTabNavigation();
         homePage.clickAddNewNote();
         homePage.fillNewNote(noteTitle, noteDescription);
         homePage.clickSubmitNote();
-        ResultPage resultPage = new ResultPage(driver, 1000);
+        ResultPage resultPage = new ResultPage(driver, 1);
         resultPage.clickNoteCreationSuccess();
 
+    }
+
+    private void updateNote(String updatedNoteTitle, String updatedNoteDescription, HomePage homePage){
+        homePage.clickEditNote();
+        homePage.clearNoteTitle();
+        homePage.clearNoteDescription();
+        homePage.fillNewNote(updatedNoteTitle, updatedNoteDescription);
+        homePage.clickSubmitNote();
+        ResultPage resultPage = new ResultPage(driver, 1);
+        resultPage.clickNoteEditSuccess();
     }
 
 
