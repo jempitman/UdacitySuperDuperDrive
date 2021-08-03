@@ -39,6 +39,26 @@
                 <span>Note not found or you do not have permission to delete the selected note. Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
 
+            <!--credential result handling-->
+            <div th:if="${result == 'credCreated'}" class="alert alert-success fill-parent">
+                <h1 class="display-5">Credential created!</h1>
+                <span>Your credential was created successfully!</span>
+                <span>Click <a th:href="@{/home}" id="cCreationSuccess">here</a> to continue.</span>
+            </div>
+            <div th:if="${result == 'credUpdated'}" class="alert alert-success fill-parent">
+                <h1 class="display-5">Credential edited!</h1>
+                <span>Your credential was edited successfully!</span>
+                <span>Click <a th:href="@{/home}" id="cEditSuccess">here</a> to continue.</span>
+            </div>
+            <div th:if="${result == 'credDeleted'}" class="alert alert-success fill-parent">
+                <h1 class="display-5">Credential deleted!</h1>
+                <span>Your credential was deleted successfully! Click <a th:href="@{/home}" id="cDeleteSuccess">here</a> to continue.</span>
+            </div>
+            <div th:if="${result == 'credNotDeleted'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Credential deletion failed! </h1>
+                <span>Credential not found or you do not have permission to delete the selected credential. Click <a th:href="@{/home}">here</a> to continue.</span>
+            </div>
+
         </div>
     </body>
 </html>

@@ -45,7 +45,7 @@ public class NoteService {
         note.setNotedescription(noteForm.getNotedescription());
         note.setUserid(userService.getLoggedInUsersId());
 
-        if(noteForm.getNoteid()==0){
+        if (noteForm.getNoteid()==0){
             noteMapper.createNote(note);
             newNote = true;
         } else{

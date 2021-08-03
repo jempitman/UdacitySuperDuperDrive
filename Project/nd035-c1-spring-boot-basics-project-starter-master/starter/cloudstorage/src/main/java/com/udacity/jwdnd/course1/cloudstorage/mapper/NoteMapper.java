@@ -20,7 +20,7 @@ public interface NoteMapper {
 
     //Add new note
     @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) " +
-            "values (#{notetitle}, #{notedescription}, #{userid})")
+            "VALUES (#{notetitle}, #{notedescription}, #{userid})")
     @Options(useGeneratedKeys = true, keyProperty = "noteid")
     int createNote(Note note);
 
