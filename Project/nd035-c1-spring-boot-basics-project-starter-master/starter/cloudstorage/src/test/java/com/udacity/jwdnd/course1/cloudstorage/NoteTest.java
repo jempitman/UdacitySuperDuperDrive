@@ -18,7 +18,7 @@ public class NoteTest extends LoginTest {
 
         HomePage homePage= new HomePage(driver, 1);
         homePage.noteTabNavigation();
-        String noteTitle = "Test";
+        String noteTitle = "Add Note test";
         String noteDescription = "This is a test";
 
         createNote(noteTitle, noteDescription, homePage);
@@ -29,11 +29,13 @@ public class NoteTest extends LoginTest {
 
         Assertions.assertEquals(noteTitle, note.getNotetitle());
         Assertions.assertEquals(noteDescription, note.getNotedescription());
+
+        deleteNote(homePage);
+        homePage.logout();
     }
 
     @Test
     public void addNoteAndEdit() throws InterruptedException{
-
 
         login("FirstName", "LastName", "UserName", "password");
 
@@ -43,11 +45,10 @@ public class NoteTest extends LoginTest {
         String initialNoteDescription = "This is a test";
 
         createNote(initialNoteTitle, initialNoteDescription, homePage);
-
         homePage.noteTabNavigation();
 
-        String updatedNoteTitle = "New test";
-        String updatedNoteDescription = "This test has been updated";
+        String updatedNoteTitle = "Edit test";
+        String updatedNoteDescription = "This note has been updated";
 
         updateNote(updatedNoteTitle, updatedNoteDescription, homePage);
 
@@ -57,10 +58,34 @@ public class NoteTest extends LoginTest {
 
         Assertions.assertEquals(updatedNoteTitle, note.getNotetitle());
         Assertions.assertEquals(updatedNoteDescription, note.getNotedescription());
+
+        deleteNote(homePage);
+        homePage.logout();
+    }
+
+    @Test
+    public void deleteNoteTest() throws InterruptedException{
+
+        login("FirstName", "LastName", "UserName", "password");
+
+        HomePage homePage= new HomePage(driver, 1);
+        homePage.noteTabNavigation();
+        String initialNoteTitle = "Test";
+        String initialNoteDescription = "This is a test";
+
+        createNote(initialNoteTitle, initialNoteDescription, homePage);
+        homePage.noteTabNavigation();
+
+        Assertions.assertFalse(homePage.emptyNoteList(driver));
+
+        deleteNote(homePage);
+        homePage.noteTabNavigation();
+
+        Assertions.assertTrue(homePage.emptyNoteList(driver));
     }
 
     //method to perform basic note creation operations
-    private void createNote(String noteTitle, String noteDescription, HomePage homePage) throws InterruptedException{
+    private void createNote(String noteTitle, String noteDescription, HomePage homePage){
         homePage.noteTabNavigation();
         homePage.clickAddNewNote();
         homePage.fillNewNote(noteTitle, noteDescription);
@@ -70,6 +95,7 @@ public class NoteTest extends LoginTest {
 
     }
 
+    //method to perform basic note update function
     private void updateNote(String updatedNoteTitle, String updatedNoteDescription, HomePage homePage){
         homePage.clickEditNote();
         homePage.clearNoteTitle();
@@ -78,6 +104,13 @@ public class NoteTest extends LoginTest {
         homePage.clickSubmitNote();
         ResultPage resultPage = new ResultPage(driver, 1);
         resultPage.clickNoteEditSuccess();
+    }
+
+    //method to perform note deletion
+    private void deleteNote(HomePage homePage){
+        homePage.clickDeleteNote();
+        ResultPage resultPage = new ResultPage(driver, 1);
+        resultPage.clickNoteDeleteSuccess();
     }
 
 

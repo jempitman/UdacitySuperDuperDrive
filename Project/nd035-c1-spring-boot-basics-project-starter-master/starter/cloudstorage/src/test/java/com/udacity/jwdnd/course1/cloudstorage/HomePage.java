@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,7 +51,7 @@ public class HomePage {
     private WebElement noteEditButton;
 
     @FindBy(id="noteDelete")
-    private List<WebElement> noteDeleteButton;
+    private WebElement noteDeleteButton;
 
     @FindBy(id="noteTableTitle")
     private WebElement noteTableTitle;
@@ -98,12 +99,32 @@ public class HomePage {
         javascriptExecutor.executeScript("arguments[0].click();", noteEditButton);
     }
 
+    public void clickDeleteNote(){
+        javascriptExecutor.executeScript("arguments[0].click();", noteDeleteButton);
+    }
+
     public Note getNoteList() {
         Note note = new Note();
         note.setNotetitle(wait.until(ExpectedConditions.elementToBeClickable(noteTableTitle)).getText());
         note.setNotedescription(noteTableDescription.getText());
 
         return note;
+
+    }
+
+    public boolean emptyNoteList(WebDriver driver){
+        return !isElementPresent(By.id("noteTableTitle"), driver) &&
+                !isElementPresent(By.id("noteTableDescription"), driver);
+    }
+
+    public boolean isElementPresent(By locatorKey, WebDriver driver){
+        try{
+            driver.findElement(locatorKey);
+            return true;
+        } catch(org.openqa.selenium.NoSuchElementException e){
+            return false;
+        }
+
 
     }
 
