@@ -25,6 +25,9 @@ public class ResultPage {
     @FindBy(css="#nCreationSuccess")
     private WebElement nCreationSuccess;
 
+    @FindBy(id="cCreationSuccess")
+    private WebElement cCreationSuccess;
+
     @FindBy(id="nEditSuccess")
     private WebElement nEditSuccess;
 
@@ -34,6 +37,11 @@ public class ResultPage {
     public void clickNoteCreationSuccess(){
         javascriptExecutor.executeScript("arguments[0].click()",
                 wait.until(ExpectedConditions.elementToBeClickable(nCreationSuccess)));
+    }
+
+    public void clickCredCreationSuccess(){
+        javascriptExecutor.executeScript("arguments[0].click()",
+                wait.until(ExpectedConditions.elementToBeClickable(cCreationSuccess)));
     }
 
     public void clickNoteEditSuccess(){

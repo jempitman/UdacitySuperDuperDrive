@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -29,8 +30,14 @@ public class HomePage {
     @FindBy(id="nav-notes-tab")
     private WebElement notesTab;
 
+    @FindBy(id="nav-credentials-tab")
+    private WebElement credTab;
+
     @FindBy(id="new-note")
     private WebElement newNoteButton;
+
+    @FindBy(id="new-cred")
+    private WebElement newCredButton;
 
     @FindBy(id="note-title")
     private WebElement nTitle;
@@ -40,6 +47,18 @@ public class HomePage {
 
     @FindBy(id="noteSubmit")
     private WebElement submitNoteButton;
+
+    @FindBy(id="credentialSubmit")
+    private WebElement submitCredButton;
+
+    @FindBy(id="credential-url")
+    private WebElement credUrl;
+
+    @FindBy(id="credential-username")
+    private WebElement credUsername;
+
+    @FindBy(id="credential-password")
+    private WebElement credPassword;
 
     @FindBy(className="listNoteTitle")
     private List<WebElement> tableHeader;
@@ -59,12 +78,25 @@ public class HomePage {
     @FindBy(id="noteTableDescription")
     private WebElement noteTableDescription;
 
+    @FindBy(css="#credTableUrl")
+    private WebElement credTableUrl;
+
+    @FindBy(id="credTableUserName")
+    private WebElement credTaleUsername;
+
+    @FindBy(id="credTablePassword")
+    private WebElement credTablePassword;
+
     public void logout(){
         javascriptExecutor.executeScript("arguments[0].click();", logoutButton);
     }
 
     public void noteTabNavigation(){
         javascriptExecutor.executeScript("arguments[0].click();", notesTab);
+    }
+
+    public void credTabNavigation(){
+        javascriptExecutor.executeScript("arguments[0].click();", credTab);
     }
 
     //Fill in note title and description
@@ -74,6 +106,16 @@ public class HomePage {
                 "';", nTitle);
         javascriptExecutor.executeScript("arguments[0].value='" + noteDescription +
                 "';", nDescription);
+    }
+
+    public void fillNewCred(String url, String userName, String password){
+
+        javascriptExecutor.executeScript("arguments[0].value='" + url +
+                "';", credUrl);
+        javascriptExecutor.executeScript("arguments[0].value='" + userName +
+                "';", credUsername);
+        javascriptExecutor.executeScript("arguments[0].value='" + password +
+                "';", credPassword);
     }
 
     public void clearNoteTitle(){
@@ -91,8 +133,16 @@ public class HomePage {
         javascriptExecutor.executeScript("arguments[0].click();", newNoteButton);
     }
 
+    public void clickAddNewCred(){
+        javascriptExecutor.executeScript("arguments[0].click();", newCredButton);
+    }
+
     public void clickSubmitNote(){
         javascriptExecutor.executeScript("arguments[0].click();", submitNoteButton);
+    }
+
+    public void clickSubmitCred(){
+        javascriptExecutor.executeScript("arguments[0].click();", submitCredButton);
     }
 
     public void clickEditNote(){
@@ -109,6 +159,16 @@ public class HomePage {
         note.setNotedescription(noteTableDescription.getText());
 
         return note;
+
+    }
+
+    public Credential getCredList() {
+        Credential credential = new Credential();
+        credential.setUrl(wait.until(ExpectedConditions.elementToBeClickable(credTableUrl)).getText());
+        credential.setUserName(credTaleUsername.getText());
+        credential.setPassword(credTablePassword.getText());
+
+        return credential;
 
     }
 
