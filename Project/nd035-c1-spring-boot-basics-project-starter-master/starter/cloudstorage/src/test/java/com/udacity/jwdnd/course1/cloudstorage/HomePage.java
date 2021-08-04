@@ -72,17 +72,20 @@ public class HomePage {
     @FindBy(id="noteDelete")
     private WebElement noteDeleteButton;
 
+    @FindBy(id="credDeleteBtn")
+    private WebElement credDeleteButton;
+
     @FindBy(id="noteTableTitle")
     private WebElement noteTableTitle;
 
     @FindBy(id="noteTableDescription")
     private WebElement noteTableDescription;
 
-    @FindBy(css="#credTableUrl")
+    @FindBy(id="credTableUrl")
     private WebElement credTableUrl;
 
     @FindBy(id="credTableUserName")
-    private WebElement credTaleUsername;
+    private WebElement credTableUserName;
 
     @FindBy(id="credTablePassword")
     private WebElement credTablePassword;
@@ -153,6 +156,10 @@ public class HomePage {
         javascriptExecutor.executeScript("arguments[0].click();", noteDeleteButton);
     }
 
+    public void clickDeleteCred(){
+        javascriptExecutor.executeScript("arguments[0].click();", credDeleteButton);
+    }
+
     public Note getNoteList() {
         Note note = new Note();
         note.setNotetitle(wait.until(ExpectedConditions.elementToBeClickable(noteTableTitle)).getText());
@@ -165,7 +172,7 @@ public class HomePage {
     public Credential getCredList() {
         Credential credential = new Credential();
         credential.setUrl(wait.until(ExpectedConditions.elementToBeClickable(credTableUrl)).getText());
-        credential.setUserName(credTaleUsername.getText());
+        credential.setUserName(credTableUserName.getText());
         credential.setPassword(credTablePassword.getText());
 
         return credential;
@@ -175,6 +182,11 @@ public class HomePage {
     public boolean emptyNoteList(WebDriver driver){
         return !isElementPresent(By.id("noteTableTitle"), driver) &&
                 !isElementPresent(By.id("noteTableDescription"), driver);
+    }
+
+    public boolean emptyCredList(WebDriver driver){
+        return !isElementPresent(By.id("credTableUrl"), driver) &&
+                !isElementPresent(By.id("credTableUsername"), driver);
     }
 
     public boolean isElementPresent(By locatorKey, WebDriver driver){
