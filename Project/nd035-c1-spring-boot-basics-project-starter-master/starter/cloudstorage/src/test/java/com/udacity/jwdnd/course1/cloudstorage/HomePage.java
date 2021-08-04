@@ -55,7 +55,7 @@ public class HomePage {
     private WebElement credUrl;
 
     @FindBy(id="credential-username")
-    private WebElement credUsername;
+    private WebElement credUserName;
 
     @FindBy(id="credential-password")
     private WebElement credPassword;
@@ -68,6 +68,9 @@ public class HomePage {
 
     @FindBy(id="noteEdit")
     private WebElement noteEditButton;
+
+    @FindBy(id="credentialEditBtn")
+    private WebElement credEditButton;
 
     @FindBy(id="noteDelete")
     private WebElement noteDeleteButton;
@@ -116,7 +119,7 @@ public class HomePage {
         javascriptExecutor.executeScript("arguments[0].value='" + url +
                 "';", credUrl);
         javascriptExecutor.executeScript("arguments[0].value='" + userName +
-                "';", credUsername);
+                "';", credUserName);
         javascriptExecutor.executeScript("arguments[0].value='" + password +
                 "';", credPassword);
     }
@@ -130,6 +133,21 @@ public class HomePage {
     public void clearNoteDescription(){
         javascriptExecutor.executeScript("arguments[0].value='" + " " +
                 "';", nDescription);
+    }
+
+    public void clearCredUrl(){
+        javascriptExecutor.executeScript("arguments[0].value='" + " " +
+                "';", credUrl);
+    }
+
+    public void clearCredUserName(){
+        javascriptExecutor.executeScript("arguments[0].value='" + " " +
+                "';", credUserName);
+    }
+
+    public void clearCredPassword(){
+        javascriptExecutor.executeScript("arguments[0].value='" + " " +
+                "';", credPassword);
     }
 
     public void clickAddNewNote(){
@@ -150,6 +168,10 @@ public class HomePage {
 
     public void clickEditNote(){
         javascriptExecutor.executeScript("arguments[0].click();", noteEditButton);
+    }
+
+    public void clickEditCred(){
+        javascriptExecutor.executeScript("arguments[0].click();", credEditButton);
     }
 
     public void clickDeleteNote(){

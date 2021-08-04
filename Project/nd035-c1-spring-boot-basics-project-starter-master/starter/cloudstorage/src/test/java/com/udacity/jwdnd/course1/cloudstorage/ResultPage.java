@@ -37,6 +37,9 @@ public class ResultPage {
     @FindBy(id="cDeleteSuccess")
     private WebElement cDeleteSuccess;
 
+    @FindBy(id="cEditSuccess")
+    private WebElement cEditSuccess;
+
     public void clickNoteCreationSuccess(){
         javascriptExecutor.executeScript("arguments[0].click()",
                 wait.until(ExpectedConditions.elementToBeClickable(nCreationSuccess)));
@@ -60,6 +63,11 @@ public class ResultPage {
     public void clickCredDeleteSuccess(){
         javascriptExecutor.executeScript("arguments[0].click()",
                 wait.until(ExpectedConditions.elementToBeClickable(cDeleteSuccess)));
+    }
+
+    public void clickCredEditSuccess(){
+        javascriptExecutor.executeScript("arguments[0].click()",
+                wait.until(ExpectedConditions.elementToBeClickable(cEditSuccess)));
     }
 
 
