@@ -15,7 +15,7 @@ public interface CredentialMapper {
 
     //Add new credential
     @Insert("INSERT INTO CREDENTIALS (url, username, key, password, userid) " +
-            "values (#{url}, #{userName}, #{key}, #{password}, #{userid})")
+            "VALUES (#{url}, #{userName}, #{key}, #{password}, #{userid})")
     @Options(useGeneratedKeys = true, keyProperty = "credentialId")
     int createCredential(Credential credential);
 
@@ -25,7 +25,7 @@ public interface CredentialMapper {
 
     //Update and edit an existing credential
     @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{userName}, key=#{key}, " +
-            "password=#{password}, WHERE credentialid=#{credentialId}")
+            "password=#{password} WHERE credentialId=#{credentialId}")
     void updateCredential(Credential credential);
 
     //get credential according to credentialId
