@@ -1,16 +1,18 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
+import com.udacity.jwdnd.course1.cloudstorage.dto.FileDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
+import com.udacity.jwdnd.course1.cloudstorage.model.FileData;
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
-import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
-import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
-import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
-import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
+import com.udacity.jwdnd.course1.cloudstorage.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/home")
@@ -20,16 +22,26 @@ public class HomeController {
     private final UserService userService;
     private final CredentialService credentialService;
     private final EncryptionService encryptionService;
+    private FileService fileService;
 
 
     public HomeController (NoteService noteService, UserService userService, CredentialService credentialService,
-                           EncryptionService encryptionService){
+                           EncryptionService encryptionService, FileService fileService){
         System.out.println("Creating HomeController");
         this.noteService = noteService;
         this.userService = userService;
         this.credentialService = credentialService;
         this.encryptionService = encryptionService;
+        this.fileService = fileService;
     }
+
+    private List<FileData> fileList = new ArrayList<>();
+
+    @ModelAttribute("fileDTO")
+    public FileDTO getFileDTO(){
+        return new FileDTO();
+    }
+
 
     @GetMapping
     public String getHomePage(@ModelAttribute("newNote")NoteForm noteForm,
@@ -37,9 +49,7 @@ public class HomeController {
                               EncryptionService encryptionService,
                               Model model){
 
-        model.addAttribute("notes", noteService.getNotes());
-        model.addAttribute("credentials", credentialService.getCredentials());
-        model.addAttribute("encryptionService",encryptionService);
+
 
         //Fetching userid credentials from database
         int userid = userService.getLoggedInUsersId();
@@ -49,6 +59,14 @@ public class HomeController {
             model.addAttribute("notes", noteService.getNotes());
             System.out.println("Notes added: " + noteService.getNotes().size());
         }
+
+        fileList = this.fileService.getAllFiles(userid);
+
+        model.addAttribute("notes", noteService.getNotes());
+        model.addAttribute("credentials", credentialService.getCredentials());
+        model.addAttribute("encryptionService",encryptionService);
+        model.addAttribute("files", fileList);
+
 
         System.out.println("Going to home page");
         return "home";
