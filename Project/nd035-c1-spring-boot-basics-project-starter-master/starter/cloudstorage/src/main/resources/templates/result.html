@@ -70,6 +70,11 @@
                 <span>The selected file is empty!</span>
                 <span>Click <a th:href="@{/home}" id="emptyFileError">here</a> to continue.</span>
             </div>
+            <div th:if="${result == 'duplicateFile'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Duplicate File!</h1>
+                <span>A file with that name already exists!</span>
+                <span>Click <a th:href="@{/home}" id="duplicateFileError">here</a> to continue.</span>
+            </div>
             <div th:if="${result == 'fileDelete'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">File deleted!</h1>
                 <span>Your file was deleted successfully! Click <a th:href="@{/home}" id="fDeleteSuccess">here</a> to continue.</span>

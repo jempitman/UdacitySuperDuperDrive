@@ -38,17 +38,21 @@ public class FileController {
 
     @PostMapping("/home/file/newFile")
     public String uploadNewFile(Authentication authentication, Model model, @ModelAttribute("fileDTO")MultipartFile file) throws IOException{
+
         String errorMsg = null;
 
         int currentUserId = this.userService.getLoggedInUsersId();
 
-        System.out.println("Name " + file.getName());
+        //1. checking for duplicity
+        boolean duplicateFile = fileService.duplicityCheck(file, currentUserId);
 
         //Edge case handling
-
-        //1. Empty file upload
+        //2. checking for empty file upload
         if (file.isEmpty()) {
             errorMsg = "emptyFile";
+            model.addAttribute("result", errorMsg);
+        } else if (duplicateFile){
+            errorMsg = "duplicateFile";
             model.addAttribute("result", errorMsg);
         }
 
@@ -56,13 +60,12 @@ public class FileController {
             //upload file to database by fileId:
             //return current fileId if successful:
             int currentFileId = this.fileService.uploadFile(file, currentUserId);
+            model.addAttribute("result", "uploadSuccess");
+
+            //3. Checking fileId is non-negative
             if (currentFileId <0){
                 errorMsg = "uploadError";
             }
-        }
-
-        if (errorMsg == null){
-            model.addAttribute("result", "uploadSuccess");
         } else{
             model.addAttribute("result", errorMsg);
         }

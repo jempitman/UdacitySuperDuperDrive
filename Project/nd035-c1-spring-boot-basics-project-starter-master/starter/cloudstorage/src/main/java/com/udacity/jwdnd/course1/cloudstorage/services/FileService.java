@@ -43,6 +43,23 @@ public class FileService {
         return fileMapper.getFileFromFileId(fileId);
     }
 
+    public boolean duplicityCheck(MultipartFile file, int userid){
+
+        boolean duplicateFile = false;
+        String fileName = file.getOriginalFilename();
+        List<FileData> fileList = getAllFiles(userid);
+
+        for (FileData fileData : fileList) {
+            assert fileName != null;
+            if (fileName.equals(fileData.getFileName())) {
+                duplicateFile = true;
+                break;
+            }
+        }
+
+        return duplicateFile;
+    }
+
 
 
 }
