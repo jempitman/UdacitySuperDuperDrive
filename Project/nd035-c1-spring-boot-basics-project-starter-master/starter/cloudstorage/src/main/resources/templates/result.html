@@ -59,6 +59,27 @@
                 <span>Credential not found or you do not have permission to delete the selected credential. Click <a th:href="@{/home}">here</a> to continue.</span>
             </div>
 
+            <!--file result handling-->
+            <div th:if="${result == 'uploadSuccess'}" class="alert alert-success fill-parent">
+                <h1 class="display-5">File upload Success!</h1>
+                <span>Your file was successfully uploaded!</span>
+                <span>Click <a th:href="@{/home}" id="fUploadSuccess">here</a> to continue.</span>
+            </div>
+            <div th:if="${result == 'emptyFile'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Empty File!</h1>
+                <span>The selected file empty!</span>
+                <span>Click <a th:href="@{/home}" id="emptyFileError">here</a> to continue.</span>
+            </div>
+            <div th:if="${result == 'fileDelete'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">File deleted!</h1>
+                <span>Your file was deleted successfully! Click <a th:href="@{/home}" id="fDeleteSuccess">here</a> to continue.</span>
+            </div>
+            <div th:if="${result == 'uploadError'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">File upload error! </h1>
+                <span>File not uploaded. Click <a th:href="@{/home}" id="fUploadError">here</a> to continue.</span>
+            </div>
+
+
         </div>
     </body>
 </html>
