@@ -35,6 +35,14 @@ public class FileService {
         return this.fileMapper.uploadFile(file);
     }
 
+    public void deleteFile(String fileName){
+        fileMapper.deleteFile(fileName);
+    }
+
+    public FileData getFileFromFileId(Integer fileId){
+        return fileMapper.getFileFromFileId(fileId);
+    }
+
 
 
 }

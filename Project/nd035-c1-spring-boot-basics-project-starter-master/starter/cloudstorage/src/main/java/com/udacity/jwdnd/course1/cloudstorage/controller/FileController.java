@@ -6,7 +6,9 @@ import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,4 +63,17 @@ public class FileController {
 
         return "result";
     }
+
+    @GetMapping("/home/file/delete/{fileId}")
+    public String deleteFile(@PathVariable Integer fileId, @ModelAttribute("fileDTO")MultipartFile file, Model model){
+
+        String fileName = fileService.getFileFromFileId(fileId).getFileName();
+        fileService.deleteFile(fileName);
+
+        model.addAttribute("files", fileService.getAllFiles(userService.getLoggedInUsersId()));
+        model.addAttribute("result", "fileDelete");
+        return "result";
+    }
+
+
 }
