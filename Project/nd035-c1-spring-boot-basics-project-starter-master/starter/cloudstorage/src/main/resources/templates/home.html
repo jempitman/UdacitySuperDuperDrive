@@ -167,15 +167,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="credential: ${credentials}">
+                                <tr th:each="credentialDTO: ${credentials}">
                                     <td>
                                         <button type="button" class="btn btn-success" id="credentialEditBtn"
-                                                th:data-id="${credential.credentialId}"
-                                                th:data-url="${credential.url}"
-                                                th:data-username="${credential.userName}"
+                                                th:data-id="${credentialDTO.credentialId}"
+                                                th:data-url="${credentialDTO.url}"
+                                                th:data-username="${credentialDTO.userName}"
                                                 th:data-decryptPassword=
-                                                        "${encryptionService.decryptValue(credential.password,
-                                                        credential.key)}"
+                                                        "${encryptionService.decryptValue(credentialDTO.password,
+                                                        credentialDTO.key)}"
                                                 th:onclick="showCredentialModal(this.getAttribute('data-id'),
                                                     this.getAttribute('data-url'),
                                                     this.getAttribute('data-userName'),
@@ -183,13 +183,13 @@
                                         Edit</button>
                                         <a class="btn btn-danger" id="credDeleteBtn"
                                            th:href="@{/credential/delete-credential/{credentialId}
-                                           (credentialId=${credential.credentialId})}">Delete</a>
+                                           (credentialId=${credentialDTO.credentialId})}">Delete</a>
                                     </td>
-                                    <th scope="row" th:text="${credential.url}" id="credTableUrl">
+                                    <th scope="row" th:text="${credentialDTO.url}" id="credTableUrl">
                                         Example Credential URL</th>
-                                    <td th:text="${credential.userName}" id="credTableUserName">
+                                    <td th:text="${credentialDTO.userName}" id="credTableUserName">
                                         Example Credential Username</td>
-                                    <td th:text="${credential.password}" id="credTablePassword">
+                                    <td th:text="${credentialDTO.password}" id="credTablePassword">
                                         Example Credential Password</td>
                                 </tr>
                                 </tbody>
