@@ -43,7 +43,7 @@ public class SignupTest {
     @Test
     public void signupOK(){
         driver.get(baseURL + "/signup");
-        SignupPage signupPage = new SignupPage(driver);
+        SignupPage signupPage = new SignupPage(driver, 1);
         signupPage.fillSignup("firstname", "lastname", "username", "password");
         signupPage.clickSignup();
         Assertions.assertTrue(signupPage.isSuccess());
@@ -53,7 +53,7 @@ public class SignupTest {
     @Test
     public void failedSignup() throws InterruptedException{
         driver.get(baseURL + "/signup");
-        SignupPage signupPage = new SignupPage(driver);
+        SignupPage signupPage = new SignupPage(driver, 1);
         signupPage.fillSignup("firstname", "lastname", "username", "password");
         signupPage.clickSignup();
         Assertions.assertTrue(signupPage.isSuccess());

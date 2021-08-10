@@ -27,59 +27,50 @@ public class LoginTest extends SignupTest{
 
     //Login, verify home page is available, then logout and verify home page is no longer available
     @Test
-    public void loginOK() throws InterruptedException{
+    public void loginOK(){
         driver.get(baseURL + "/signup");
-        SignupPage signupPage = new SignupPage(driver);
+        SignupPage signupPage = new SignupPage(driver, 1);
         signupPage.fillSignup("firstName", "lastName", "userName", "password");
-        Thread.sleep(1000);
 
         signupPage.clickSignup();
 
         driver.get(baseURL + "/login");
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(driver, 1);
         loginPage.fillLogin("userName", "password");
         loginPage.clickLogin();
-
-        Thread.sleep(1000);
 
         Assertions.assertEquals("Home", driver.getTitle());
 
         HomePage homePage = new HomePage(driver, 1);
         homePage.logout();
 
-        Thread.sleep(1000);
         Assertions.assertEquals("Login", driver.getTitle());
 
     }
 
     @Test
-    public void failedLogin() throws InterruptedException{
+    public void failedLogin(){
 
         driver.get(baseURL + "/home");
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(driver, 1);
         loginPage.fillLogin("userName", "password");
         loginPage.clickLogin();
-
-        Thread.sleep(1000);
 
         Assertions.assertTrue(loginPage.isError());
     }
 
-    public void login(String firstName, String lastName, String userName, String password) throws InterruptedException{
+    public void login(String firstName, String lastName, String userName, String password){
         driver.get(baseURL + "/signup");
-        SignupPage signupPage = new SignupPage(driver);
+        SignupPage signupPage = new SignupPage(driver, 1000);
         signupPage.fillSignup(firstName, lastName, userName, password);
         signupPage.clickSignup();
-        Thread.sleep(1000);
 
         driver.get(baseURL + "/login");
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(driver, 1);
         loginPage.fillLogin(userName, password);
         loginPage.clickLogin();
-        Thread.sleep(1000);
-
     }
 
 

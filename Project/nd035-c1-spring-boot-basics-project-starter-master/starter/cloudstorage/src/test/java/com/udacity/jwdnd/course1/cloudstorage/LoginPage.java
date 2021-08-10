@@ -5,16 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
 
     private WebDriver driver;
     private final JavascriptExecutor javascriptExecutor;
+    private final WebDriverWait wait;
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver, int waitTimeOut){
         this.driver = driver;
         PageFactory.initElements(driver, this);
         this.javascriptExecutor = (JavascriptExecutor) driver;
+        wait = new WebDriverWait(driver, waitTimeOut);
     }
 
     @FindBy(id="inputUsername")
@@ -36,6 +40,8 @@ public class LoginPage {
     public void fillLogin(String username, String password) {
         //System.out.println("Entering username details");
 
+        wait.until(ExpectedConditions.elementToBeClickable(inputUsername));
+
         javascriptExecutor.executeScript("arguments[0].value='" + username +
                 "';", inputUsername);
         System.out.println("Entering password details");
@@ -45,7 +51,7 @@ public class LoginPage {
     }
 
     public void clickLogin(){
-        System.out.println("clicking Login button");
+        //System.out.println("clicking Login button");
         javascriptExecutor.executeScript("arguments[0].click();", loginButton);
     }
 

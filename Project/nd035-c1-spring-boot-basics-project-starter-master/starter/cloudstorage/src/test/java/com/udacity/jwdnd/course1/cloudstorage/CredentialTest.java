@@ -16,7 +16,6 @@ public class CredentialTest extends LoginTest{
     @Test
     public void addNewCredential() throws InterruptedException{
 
-
         login("FirstName", "LastName", "UserName", "password");
 
         HomePage homePage= new HomePage(driver, 1);
