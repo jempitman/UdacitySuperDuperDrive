@@ -4,7 +4,10 @@ import com.udacity.jwdnd.course1.cloudstorage.dto.FileDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileData;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
-import org.springframework.http.HttpHeaders;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Controller class to handle file upload, viewing and deletion requests on the Home page
@@ -73,7 +72,7 @@ public class FileController {
             int currentFileId = this.fileService.uploadFile(file, currentUserId);
             model.addAttribute("result", "uploadSuccess");
 
-            //3. Checking fileId is non-negative
+            //3. Checking if fileId is non-negative
             if (currentFileId <0){
                 errorMsg = "uploadError";
             }
@@ -88,29 +87,30 @@ public class FileController {
     @GetMapping("/home/file/delete/{fileId}")
     public String deleteFile(@PathVariable Integer fileId, @ModelAttribute("fileDTO")MultipartFile file, Model model){
 
-        String fileName = fileService.getFileFromFileId(fileId).getFileName();
-        fileService.deleteFile(fileName);
+        //delete file according to fileId
+        fileService.deleteFile(fileId);
+        int userId = userService.getLoggedInUsersId();
 
-        model.addAttribute("files", fileService.getAllFiles(userService.getLoggedInUsersId()));
+        //update fileList in model
+        model.addAttribute("files", fileService.getAllFiles(userId));
+        //update result to
         model.addAttribute("result", "fileDelete");
         return "result";
     }
 
     //View file
     @GetMapping("/home/file/view/{fileId}")
-    public StreamingResponseBody viewFile(HttpServletResponse response, @PathVariable Integer fileId) throws IOException{
+    public ResponseEntity<Resource> viewFile(@PathVariable Integer fileId) {
+        //fetching file details according to fileId
         FileData file = fileService.getFileFromFileId(fileId);
-        response.setContentType(file.getContentType());
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\"" + file.getFileName());
-        return outputStream -> {
-            int bytesRead;
-            byte[] buffer = new byte[10000];
-            InputStream inputStream = new ByteArrayInputStream(file.getFileData());
-            while((bytesRead = inputStream.read(buffer)) != -1){
-                outputStream.write(buffer, 0,bytesRead);
-            }
-        };
-    }
 
+        //create new ByteArrayResource to read data from uploaded file
+        ByteArrayResource resource = new ByteArrayResource(file.getFileData());
+        //fetch file details from ByteArrayResource
+        return ResponseEntity.ok()
+                .contentLength(file.getFileSize())
+                .contentType(MediaType.valueOf(file.getContentType()))
+                .body(resource);
+    }
 
 }

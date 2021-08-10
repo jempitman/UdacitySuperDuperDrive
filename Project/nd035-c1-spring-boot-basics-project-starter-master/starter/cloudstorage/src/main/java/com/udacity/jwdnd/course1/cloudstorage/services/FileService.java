@@ -35,8 +35,8 @@ public class FileService {
         return this.fileMapper.uploadFile(file);
     }
 
-    public void deleteFile(String fileName){
-        fileMapper.deleteFile(fileName);
+    public void deleteFile(Integer fileId){
+        fileMapper.deleteFile(fileId);
     }
 
     public FileData getFileFromFileId(Integer fileId){

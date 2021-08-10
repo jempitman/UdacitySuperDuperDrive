@@ -32,18 +32,24 @@ public class CredentialController {
     @PostMapping("add-credential")
     public String postCredential(@ModelAttribute("newCredential")CredentialForm credentialForm, Model model){
 
+        //Initialize error message
+        String errorMsg = null;
+
         //flag to check if credential already exists
         boolean newCred = credentialService.postCredential(credentialForm);
 
         if(newCred){
+            errorMsg = "credCreated";
             //display creation result page if credential is new
             model.addAttribute("credentials", credentialService.getCredentialList());
-            model.addAttribute("result", "credCreated");
+            //display credential creation result page
         } else{
+            errorMsg = "credUpdated";
             //display update result page if credential already exists
-            model.addAttribute("result", "credUpdated");
         }
+        model.addAttribute("result", errorMsg);
 
+        //refresh model encryptionService to continue encrypting credential passwords
         model.addAttribute("encryptionService", encryptionService);
 
         return "result";
@@ -53,7 +59,8 @@ public class CredentialController {
     @GetMapping(value = "/delete-credential/{credentialId}")
     public String deleteCredential(@PathVariable("credentialId") Integer credentialId,
                                    Model model){
-        //System.out.println("Selected noteId is " + credentialId);
+
+        String errorMsg = null;
 
         //fetch userName for note
         String usernameForNote = credentialService.getUserNameForCredential(credentialId);
@@ -65,15 +72,17 @@ public class CredentialController {
         model.addAttribute("credentials", credentialService.getCredentialList());
         model.addAttribute("encryptionService", encryptionService);
 
-        //check if ID of credential to be deleted matches an existing credential in the Notes database
+        //check if ID of credential to be deleted matches an existing credential in the Credentials database
         if (credentialService.lookupCredential(credentialId) && usernameForNote.equals(loggedInUsername)){
             credentialService.deleteCredential(credentialId);
             //display credential deleted result page
-            model.addAttribute("result", "credDeleted");
+            errorMsg = "credDeleted";
         } else{
             //display credential not deleted result page
-            model.addAttribute("result", "credNotDeleted");
+            errorMsg = "credNotDeleted";
         }
+
+        model.addAttribute("result",errorMsg);
 
         return "result";
     }
