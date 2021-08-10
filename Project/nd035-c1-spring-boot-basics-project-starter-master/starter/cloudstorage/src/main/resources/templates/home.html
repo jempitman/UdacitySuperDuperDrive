@@ -89,20 +89,20 @@
                                     <tr th:each="noteForm: ${notes}">
                                         <td>
                                             <button type="button" class="btn btn-success" id="noteEdit"
-                                                    th:data-id="${noteForm.noteid}"
-                                                    th:data-title="${noteForm.notetitle}"
-                                                    th:data-description="${noteForm.notedescription}"
+                                                    th:data-id="${noteForm.noteId}"
+                                                    th:data-title="${noteForm.noteTitle}"
+                                                    th:data-description="${noteForm.noteDescription}"
                                                     th:onclick="showNoteModal(this.getAttribute('data-id'),
                                                     this.getAttribute('data-title'),
                                                     this.getAttribute('data-description'))">
                                                 Edit</button>
                                             <a class="btn btn-danger" id="noteDelete"
-                                               th:href="@{/note/delete-note/{noteid}(noteid=${noteForm.noteid})}">
+                                               th:href="@{/note/delete-note/{noteId}(noteId=${noteForm.noteId})}">
                                                 Delete</a>
                                         </td>
-                                        <th id="noteTableTitle" scope="row" th:text="${noteForm.notetitle}"
+                                        <th id="noteTableTitle" scope="row" th:text="${noteForm.noteTitle}"
                                             class="listNoteTitle">Example Note Title</th>
-                                        <td id="noteTableDescription" th:text="${noteForm.notedescription}"
+                                        <td id="noteTableDescription" th:text="${noteForm.noteDescription}"
                                             class="listNoteDescription">Example Note Description </td>
                                     </tr>
                                 </tbody>
@@ -122,17 +122,17 @@
                                     <div class="modal-body">
                                         <form action="#" th:action="@{/note/add-note}" th:object="${newNote}"
                                               method="POST">
-                                            <input type="hidden" name="noteid" th:field="*{noteid}" id="note-id">
+                                            <input type="hidden" name="noteId" th:field="*{noteId}" id="note-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
-                                                <input type="text" name= "notetitle" th:field="*{notetitle}"
+                                                <input type="text" name= "noteTitle" th:field="*{noteTitle}"
                                                        class="form-control" id="note-title"  maxlength="20" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="note-description" class="col-form-label" >Description
                                                 </label>
-                                                <textarea class="form-control" name="notedescription"
-                                                          th:field="*{notedescription}"
+                                                <textarea class="form-control" name="noteDescription"
+                                                          th:field="*{noteDescription}"
                                                           id="note-description" rows="5" maxlength="1000" required>
                                                 </textarea>
                                             </div>

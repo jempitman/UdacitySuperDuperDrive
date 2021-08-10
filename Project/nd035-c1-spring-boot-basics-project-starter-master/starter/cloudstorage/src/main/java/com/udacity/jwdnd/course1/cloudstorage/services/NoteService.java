@@ -39,32 +39,32 @@ public class NoteService {
         boolean newNote;
         Note note = new Note();
 
-        note.setNotetitle(noteForm.getNotetitle());
-        note.setNotedescription(noteForm.getNotedescription());
-        note.setUserid(userService.getLoggedInUsersId());
+        note.setNoteTitle(noteForm.getNoteTitle());
+        note.setNoteDescription(noteForm.getNoteDescription());
+        note.setUserId(userService.getLoggedInUsersId());
 
-        if (noteForm.getNoteid()==0){
+        if (noteForm.getNoteId()==0){
             noteMapper.createNote(note);
             newNote = true;
         } else{
-            note.setNoteId(noteForm.getNoteid());
+            note.setNoteId(noteForm.getNoteId());
             noteMapper.updateNote(note);
             newNote = false;
         }
         return newNote;
     }
 
-    public void deleteNote(Integer noteid){
-        noteMapper.deleteNote(noteid);
+    public void deleteNote(Integer noteId){
+        noteMapper.deleteNote(noteId);
     }
 
-    public String getUserNameForNote(Integer noteid){
-        Integer userid = noteMapper.getUserIdFromNote(noteid);
-        return userService.getUsernameForId(userid);
+    public String getUserNameForNote(Integer noteId){
+        Integer userId = noteMapper.getUserIdFromNote(noteId);
+        return userService.getUsernameForId(userId);
     }
 
-    public boolean lookupNote(Integer noteid){
-        return noteMapper.getNote(noteid)!=null;
+    public boolean lookupNote(Integer noteId){
+        return noteMapper.getNote(noteId)!=null;
     }
 
 }

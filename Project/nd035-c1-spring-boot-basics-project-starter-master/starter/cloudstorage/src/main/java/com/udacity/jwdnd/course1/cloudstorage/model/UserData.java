@@ -2,14 +2,14 @@ package com.udacity.jwdnd.course1.cloudstorage.model;
 
 public class UserData {
 
-    private int userid;
+    private Integer userId;
     private String username;
     private String salt;
     private String password;
     private String firstname;
     private String lastname;
 
-    //Initialization constructor for User with Object "object" where userid should
+    //Initialization constructor for User with Object "object" where userId should
     // be to overcome initialization errors
     public UserData(Object object, String username, String salt,
                     String password, String firstname, String lastname) {
@@ -20,12 +20,12 @@ public class UserData {
         this.lastname = lastname;
     }
 
-    public int getUserid() {
-        return userid;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

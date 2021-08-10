@@ -43,7 +43,7 @@ public class UserService {
 
     public int getLoggedInUsersId(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return getUser(username).getUserid();
+        return getUser(username).getUserId();
     }
 
 }

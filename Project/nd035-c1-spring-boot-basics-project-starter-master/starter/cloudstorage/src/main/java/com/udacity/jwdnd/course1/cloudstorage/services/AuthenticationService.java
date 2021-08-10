@@ -24,7 +24,7 @@ public class AuthenticationService implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        //Integer userid = authentication.getUserid();
+        //Integer userid = authentication.getUserId();
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 

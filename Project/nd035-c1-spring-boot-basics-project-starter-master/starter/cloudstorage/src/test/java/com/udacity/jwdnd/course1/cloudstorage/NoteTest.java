@@ -27,8 +27,8 @@ public class NoteTest extends LoginTest {
 
         Note note = homePage.getNoteList();
 
-        Assertions.assertEquals(noteTitle, note.getNotetitle());
-        Assertions.assertEquals(noteDescription, note.getNotedescription());
+        Assertions.assertEquals(noteTitle, note.getNoteTitle());
+        Assertions.assertEquals(noteDescription, note.getNoteDescription());
 
         deleteNote(homePage);
         homePage.logout();
@@ -56,8 +56,8 @@ public class NoteTest extends LoginTest {
 
         Note note = homePage.getNoteList();
 
-        Assertions.assertEquals(updatedNoteTitle, note.getNotetitle());
-        Assertions.assertEquals(updatedNoteDescription, note.getNotedescription());
+        Assertions.assertEquals(updatedNoteTitle, note.getNoteTitle());
+        Assertions.assertEquals(updatedNoteDescription, note.getNoteDescription());
 
         deleteNote(homePage);
         homePage.logout();

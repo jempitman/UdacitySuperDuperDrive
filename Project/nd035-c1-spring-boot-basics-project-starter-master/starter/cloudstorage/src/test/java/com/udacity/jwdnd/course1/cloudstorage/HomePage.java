@@ -184,8 +184,8 @@ public class HomePage {
 
     public Note getNoteList() {
         Note note = new Note();
-        note.setNotetitle(wait.until(ExpectedConditions.elementToBeClickable(noteTableTitle)).getText());
-        note.setNotedescription(noteTableDescription.getText());
+        note.setNoteTitle(wait.until(ExpectedConditions.elementToBeClickable(noteTableTitle)).getText());
+        note.setNoteDescription(noteTableDescription.getText());
 
         return note;
 

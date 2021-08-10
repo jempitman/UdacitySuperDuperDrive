@@ -14,28 +14,28 @@ import java.util.List;
 public interface NoteMapper {
 
     //Return all notes belonging to a particular userid
-    @Select("SELECT * FROM NOTES WHERE userid = #{userid}")
-    public List<NoteForm> getNoteList(Integer userid);
+    @Select("SELECT * FROM NOTES WHERE userId = #{userId}")
+    public List<NoteForm> getNoteList(Integer userId);
 
     //Add new note
     @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) " +
-            "VALUES (#{notetitle}, #{notedescription}, #{userid})")
-    @Options(useGeneratedKeys = true, keyProperty = "noteid")
+            "VALUES (#{noteTitle}, #{noteDescription}, #{userId})")
+    @Options(useGeneratedKeys = true, keyProperty = "noteId")
     void createNote(Note note);
 
     // Note deletion operation
-    @Delete("DELETE FROM NOTES WHERE noteid = #{noteid}")
-    void deleteNote(Integer noteid);
+    @Delete("DELETE FROM NOTES WHERE noteid = #{noteId}")
+    void deleteNote(@Param("noteId") int noteId);
 
     //Update and edit an existing note
-    @Update("UPDATE NOTES SET notetitle=#{notetitle}, notedescription=#{notedescription} WHERE noteid=#{noteid}")
+    @Update("UPDATE NOTES SET notetitle=#{noteTitle}, notedescription=#{noteDescription} WHERE noteid=#{noteId}")
     void updateNote(Note note);
 
     //get note according to noteid
-    @Select("SELECT * FROM NOTES WHERE noteid=#{noteid}")
+    @Select("SELECT * FROM NOTES WHERE noteid=#{noteId}")
     NoteForm getNote(Integer noteId);
 
-    @Select("SELECT userid FROM NOTES WHERE noteid=#{noteid}")
-    public Integer getUserIdFromNote(Integer noteid);
+    @Select("SELECT userid FROM NOTES WHERE noteid=#{noteId}")
+    public Integer getUserIdFromNote(Integer noteId);
 
 }

@@ -13,10 +13,10 @@ public interface UserMapper {
 
     @Insert("INSERT INTO USERS (username, salt, password, firstname, lastname) " +
             "VALUES(#{username}, #{salt}, #{password}, #{firstname}, #{lastname})")
-    @Options(useGeneratedKeys = true, keyProperty = "userid")
+    @Options(useGeneratedKeys = true, keyProperty = "userId")
     int createUser(UserData user);
 
-    @Select("SELECT username FROM USERS WHERE userID=#{userid}")
-    public String getUsernameId(Integer userid);
+    @Select("SELECT username FROM USERS WHERE userId=#{userId}")
+    public String getUsernameId(Integer userId);
 
 }
