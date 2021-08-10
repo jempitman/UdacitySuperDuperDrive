@@ -20,27 +20,38 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Controller class to handle file upload, viewing and deletion requests on the Home page
+ */
+
 @Controller
 public class FileController {
 
-    private FileService fileService;
-    private UserService userService;
+    //instance fields: FileService and UserService
+    private final FileService fileService;
+    private final UserService userService;
 
+    //constructor:
     public FileController(FileService fileService, UserService userService) {
         this.fileService = fileService;
         this.userService = userService;
     }
 
+    //fetch FileDTO so that file data can be mapped to FileController
     @ModelAttribute("fileDTO")
     public FileDTO getFileDTO(){
         return new FileDTO();
     }
 
+    //method to upload a new file
     @PostMapping("/home/file/newFile")
-    public String uploadNewFile(Authentication authentication, Model model, @ModelAttribute("fileDTO")MultipartFile file) throws IOException{
+    public String uploadNewFile(Authentication authentication, Model model,
+                                @ModelAttribute("fileDTO")MultipartFile file) throws IOException{
 
+        //Initializing the error message
         String errorMsg = null;
 
+        //fetch current UserId
         int currentUserId = this.userService.getLoggedInUsersId();
 
         //1. checking for duplicity
