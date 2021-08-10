@@ -28,8 +28,8 @@
                 <span>Click <a th:href="@{/home}" id="nCreationSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'noteUpdated'}" class="alert alert-success fill-parent">
-                <h1 class="display-5">Note edited!</h1>
-                <span>Your note was edited successfully!</span>
+                <h1 class="display-5">Note updated!</h1>
+                <span>Your note was updated successfully!</span>
                 <span>Click <a th:href="@{/home}" id="nEditSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'noteDeleted'}" class="alert alert-success fill-parent">
@@ -50,8 +50,8 @@
                 <span>Click <a th:href="@{/home}" id="cCreationSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'credUpdated'}" class="alert alert-success fill-parent">
-                <h1 class="display-5">Credential edited!</h1>
-                <span>Your credential was edited successfully!</span>
+                <h1 class="display-5">Credential updated!</h1>
+                <span>Your credential was updated successfully!</span>
                 <span>Click <a th:href="@{/home}" id="cEditSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'credDeleted'}" class="alert alert-success fill-parent">
@@ -72,8 +72,8 @@
                 <span>Click <a th:href="@{/home}" id="fUploadSuccess">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'emptyFile'}" class="alert alert-danger fill-parent">
-                <h1 class="display-5">Empty File!</h1>
-                <span>The selected file is empty!</span>
+                <h1 class="display-5">Empty File Error!</h1>
+                <span>Please select a file to upload!</span>
                 <span>Click <a th:href="@{/home}" id="emptyFileError">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'duplicateFile'}" class="alert alert-danger fill-parent">
