@@ -26,8 +26,8 @@ public class NoteService {
         System.out.println("Creating HomeService bean");
     }
 
-    public List<NoteForm> getNoteList(){
-        return noteMapper.getNoteList(userService.getLoggedInUsersId());
+    public List<NoteForm> getNoteList(Integer userId){
+        return noteMapper.getNoteList(userId);
     }
 
     public NoteForm getNote(Integer noteid){

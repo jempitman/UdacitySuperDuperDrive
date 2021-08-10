@@ -25,6 +25,8 @@ public class NoteController {
     public String postNote(@ModelAttribute("newNote") NoteForm noteForm, Model model){
 
         boolean newNote = noteService.postNote(noteForm);
+        Integer userId = userService.getLoggedInUsersId();
+
 
         if (newNote){
             model.addAttribute("result", "noteCreated");
@@ -32,28 +34,28 @@ public class NoteController {
             model.addAttribute("result", "noteUpdated");
         }
 
-        model.addAttribute("notes", noteService.getNoteList());
+        model.addAttribute("notes", noteService.getNoteList(userId));
         //model.addAttribute("result", "success");
 
         return "result";
 
     }
 
-    @GetMapping(value = "/get-note/{noteid}")
-    public NoteForm getNote(@PathVariable("noteid") Integer noteid){
-        return noteService.getNote(noteid);
+    @GetMapping(value = "/get-note/{noteId}")
+    public NoteForm getNote(@PathVariable("noteId") Integer noteId){
+        return noteService.getNote(noteId);
     }
 
-    @GetMapping(value = "/delete-note/{noteid}")
-    public String deleteNote(@PathVariable("noteid") Integer noteid, Model model){
-        System.out.println("Selected noteId is " + noteid);
+    @GetMapping(value = "/delete-note/{noteId}")
+    public String deleteNote(@PathVariable("noteId") Integer noteId, Model model){
+        System.out.println("Selected noteId is " + noteId);
 
-        String usernameForNote = noteService.getUserNameForNote(noteid);
+        String usernameForNote = noteService.getUserNameForNote(noteId);
 
         String loggedInUsername = userService.getUsernameForId(userService.getLoggedInUsersId());
 
-        if (noteService.lookupNote(noteid) && usernameForNote.equals(loggedInUsername)){
-            noteService.deleteNote(noteid);
+        if (noteService.lookupNote(noteId) && usernameForNote.equals(loggedInUsername)){
+            noteService.deleteNote(noteId);
             model.addAttribute("result", "noteDeleted");
         } else{
             model.addAttribute("result", "noteNotDeleted");

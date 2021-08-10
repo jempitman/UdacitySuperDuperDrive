@@ -34,6 +34,7 @@ public class CredentialController {
 
         //Initialize error message
         String errorMsg = null;
+        Integer userId = userService.getLoggedInUsersId();
 
         //flag to check if credential already exists
         boolean newCred = credentialService.postCredential(credentialForm);
@@ -41,7 +42,7 @@ public class CredentialController {
         if(newCred){
             errorMsg = "credCreated";
             //display creation result page if credential is new
-            model.addAttribute("credentials", credentialService.getCredentialList());
+            model.addAttribute("credentials", credentialService.getCredentialList(userId));
             //display credential creation result page
         } else{
             errorMsg = "credUpdated";
@@ -60,7 +61,9 @@ public class CredentialController {
     public String deleteCredential(@PathVariable("credentialId") Integer credentialId,
                                    Model model){
 
+        //Initialize errorMsg
         String errorMsg = null;
+        Integer userId = userService.getLoggedInUsersId();
 
         //fetch userName for note
         String usernameForNote = credentialService.getUserNameForCredential(credentialId);
@@ -69,7 +72,7 @@ public class CredentialController {
         String loggedInUsername = userService.getUsernameForId(userService.getLoggedInUsersId());
 
         //update credentialList
-        model.addAttribute("credentials", credentialService.getCredentialList());
+        model.addAttribute("credentials", credentialService.getCredentialList(userId));
         model.addAttribute("encryptionService", encryptionService);
 
         //check if ID of credential to be deleted matches an existing credential in the Credentials database
