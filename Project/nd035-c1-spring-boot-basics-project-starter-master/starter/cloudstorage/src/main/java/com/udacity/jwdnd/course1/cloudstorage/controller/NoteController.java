@@ -32,7 +32,7 @@ public class NoteController {
             model.addAttribute("result", "noteUpdated");
         }
 
-        model.addAttribute("notes", noteService.getNotes());
+        model.addAttribute("notes", noteService.getNoteList());
         //model.addAttribute("result", "success");
 
         return "result";

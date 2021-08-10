@@ -57,16 +57,9 @@ public class SignupTest {
         signupPage.fillSignup("firstname", "lastname", "username", "password");
         signupPage.clickSignup();
         Assertions.assertTrue(signupPage.isSuccess());
-        //Assertions.assertEquals("You successfully signed up! Please continue to the login page", signupPage.getSuccessMsg());
 
         signupPage.fillSignup("firstname", "lastname", "username", "password");
         Assertions.assertTrue(signupPage.isError());
-        //Assertions.assertEquals("User already exists", signupPage.getErrorMsg());
-        //SignupPage newSignupPage = new SignupPage(driver);
-        //signupPage.fillSignup("firstname", "lastname", "username", "password");
-
-
-        //Assertions.assertTrue(signupPage.isError());
 
     }
 

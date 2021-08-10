@@ -15,8 +15,7 @@ public interface NoteMapper {
 
     //Return all notes belonging to a particular userid
     @Select("SELECT * FROM NOTES WHERE userid = #{userid}")
-    public List<NoteForm> getNotes(Integer userid);
-
+    public List<NoteForm> getNoteList(Integer userid);
 
     //Add new note
     @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) " +
@@ -38,7 +37,5 @@ public interface NoteMapper {
 
     @Select("SELECT userid FROM NOTES WHERE noteid=#{noteid}")
     public Integer getUserIdFromNote(Integer noteid);
-
-
 
 }

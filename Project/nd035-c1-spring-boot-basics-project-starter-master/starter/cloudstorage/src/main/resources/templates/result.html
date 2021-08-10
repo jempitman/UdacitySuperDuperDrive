@@ -12,11 +12,13 @@
         <div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
             <div th:if="${result == 'success'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Success</h1>
-                <span>Your changes were successfully saved. Click <a th:href="@{/home}" id = "linkSuccess">here</a> to continue.</span>
+                <span>Your changes were successfully saved. Click <a th:href="@{/home}" id = "linkSuccess">here</a>
+                    to continue.</span>
             </div>
             <div th:if="${fail}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Error</h1>
-                <span>Your changes were not saved. Click <a th:href="@{/home}" id="linkFail">here</a> to continue.</span>
+                <span>Your changes were not saved. Click <a th:href="@{/home}" id="linkFail">here</a>
+                    to continue.</span>
             </div>
 
             <!--note result handling-->
@@ -32,11 +34,13 @@
             </div>
             <div th:if="${result == 'noteDeleted'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Note deleted!</h1>
-                <span>Your note was deleted successfully! Click <a th:href="@{/home}" id="nDeleteSuccess">here</a> to continue.</span>
+                <span>Your note was deleted successfully! Click <a th:href="@{/home}" id="nDeleteSuccess">here</a>
+                    to continue.</span>
             </div>
             <div th:if="${result == 'noteNotDeleted'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Note deletion failed! </h1>
-                <span>Note not found or you do not have permission to delete the selected note. Click <a th:href="@{/home}">here</a> to continue.</span>
+                <span>Note not found or you do not have permission to delete the selected note. Click
+                    <a th:href="@{/home}">here</a> to continue.</span>
             </div>
 
             <!--credential result handling-->
@@ -52,11 +56,13 @@
             </div>
             <div th:if="${result == 'credDeleted'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">Credential deleted!</h1>
-                <span>Your credential was deleted successfully! Click <a th:href="@{/home}" id="cDeleteSuccess">here</a> to continue.</span>
+                <span>Your credential was deleted successfully! Click <a th:href="@{/home}" id="cDeleteSuccess">
+                    here</a> to continue.</span>
             </div>
             <div th:if="${result == 'credNotDeleted'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Credential deletion failed! </h1>
-                <span>Credential not found or you do not have permission to delete the selected credential. Click <a th:href="@{/home}">here</a> to continue.</span>
+                <span>Credential not found or you do not have permission to delete the selected credential. Click
+                    <a th:href="@{/home}">here</a> to continue.</span>
             </div>
 
             <!--file result handling-->
@@ -72,18 +78,19 @@
             </div>
             <div th:if="${result == 'duplicateFile'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Duplicate File!</h1>
-                <span>A file with that name already exists!</span>
+                <span>A file with that name already exists! Rename the file or select a file with a different name
+                </span>
                 <span>Click <a th:href="@{/home}" id="duplicateFileError">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'fileDelete'}" class="alert alert-success fill-parent">
                 <h1 class="display-5">File deleted!</h1>
-                <span>Your file was deleted successfully! Click <a th:href="@{/home}" id="fDeleteSuccess">here</a> to continue.</span>
+                <span>Your file was deleted successfully! Click <a th:href="@{/home}" id="fDeleteSuccess">here</a>
+                    to continue.</span>
             </div>
             <div th:if="${result == 'uploadError'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">File upload error! </h1>
                 <span>File not uploaded. Click <a th:href="@{/home}" id="fUploadError">here</a> to continue.</span>
             </div>
-
 
         </div>
     </body>

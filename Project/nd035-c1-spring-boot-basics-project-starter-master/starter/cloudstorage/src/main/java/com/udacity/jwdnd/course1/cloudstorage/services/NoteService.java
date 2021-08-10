@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class NoteService {
 
-
     private NoteMapper noteMapper;
 
     private UserService userService;
@@ -27,14 +26,13 @@ public class NoteService {
         System.out.println("Creating HomeService bean");
     }
 
-    public List<NoteForm> getNotes(){
-        return noteMapper.getNotes(userService.getLoggedInUsersId());
+    public List<NoteForm> getNoteList(){
+        return noteMapper.getNoteList(userService.getLoggedInUsersId());
     }
 
     public NoteForm getNote(Integer noteid){
         return noteMapper.getNote(noteid);
     }
-
 
     public boolean postNote(NoteForm noteForm){
         //flag to check if a new Note is being created.
@@ -58,7 +56,6 @@ public class NoteService {
 
     public void deleteNote(Integer noteid){
         noteMapper.deleteNote(noteid);
-
     }
 
     public String getUserNameForNote(Integer noteid){
@@ -69,7 +66,5 @@ public class NoteService {
     public boolean lookupNote(Integer noteid){
         return noteMapper.getNote(noteid)!=null;
     }
-
-
 
 }

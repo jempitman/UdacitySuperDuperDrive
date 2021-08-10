@@ -49,21 +49,19 @@ public class HomeController {
                               EncryptionService encryptionService,
                               Model model){
 
-
-
         //Fetching userid credentials from database
         int userid = userService.getLoggedInUsersId();
 
         //updating list of notes shown on home page
-        if(noteService.getNotes().size()>0){
-            model.addAttribute("notes", noteService.getNotes());
-            System.out.println("Notes added: " + noteService.getNotes().size());
+        if(noteService.getNoteList().size()>0){
+            model.addAttribute("notes", noteService.getNoteList());
+            System.out.println("Notes added: " + noteService.getNoteList().size());
         }
 
         fileList = this.fileService.getAllFiles(userid);
 
-        model.addAttribute("notes", noteService.getNotes());
-        model.addAttribute("credentials", credentialService.getCredentials());
+        model.addAttribute("notes", noteService.getNoteList());
+        model.addAttribute("credentials", credentialService.getCredentialList());
         model.addAttribute("encryptionService",encryptionService);
         model.addAttribute("files", fileList);
 
@@ -71,17 +69,5 @@ public class HomeController {
         System.out.println("Going to home page");
         return "home";
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

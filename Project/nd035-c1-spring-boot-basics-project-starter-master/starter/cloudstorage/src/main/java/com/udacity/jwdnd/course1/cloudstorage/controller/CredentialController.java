@@ -26,14 +26,10 @@ public class CredentialController {
     @PostMapping("add-credential")
     public String postCredential(@ModelAttribute("newCredential")CredentialForm credentialForm, Model model){
 
-
-
         boolean newCred = credentialService.postCredential(credentialForm);
 
-
-
         if(newCred){
-            model.addAttribute("credentials", credentialService.getCredentials());
+            model.addAttribute("credentials", credentialService.getCredentialList());
             model.addAttribute("result", "credCreated");
         } else{
             model.addAttribute("result", "credUpdated");
@@ -54,7 +50,7 @@ public class CredentialController {
 
         String loggedInUsername = userService.getUsernameForId(userService.getLoggedInUsersId());
 
-        model.addAttribute("credentials", credentialService.getCredentials());
+        model.addAttribute("credentials", credentialService.getCredentialList());
         model.addAttribute("encryptionService", encryptionService);
 
         if (credentialService.lookupCredential(credentialId) && usernameForNote.equals(loggedInUsername)){
