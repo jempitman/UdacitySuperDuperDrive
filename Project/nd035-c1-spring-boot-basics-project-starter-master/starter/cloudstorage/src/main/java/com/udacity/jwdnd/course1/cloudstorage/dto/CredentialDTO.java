@@ -1,6 +1,6 @@
-package com.udacity.jwdnd.course1.cloudstorage.model;
+package com.udacity.jwdnd.course1.cloudstorage.dto;
 
-public class CredentialForm {
+public class CredentialDTO {
 
     private String credentialId;
     private String url;
@@ -9,7 +9,8 @@ public class CredentialForm {
     private String password;
     private Integer userid;
 
-    public CredentialForm(String credentialId, String url, String userName, String key, String password, Integer userid) {
+    /*
+    public CredentialDTO(String credentialId, String url, String userName, String key, String password, Integer userid) {
         this.credentialId = credentialId;
         this.url = url;
         this.userName = userName;
@@ -17,6 +18,8 @@ public class CredentialForm {
         this.password = password;
         this.userid = userid;
     }
+
+     */
 
     public String getCredentialId() {
         return credentialId;

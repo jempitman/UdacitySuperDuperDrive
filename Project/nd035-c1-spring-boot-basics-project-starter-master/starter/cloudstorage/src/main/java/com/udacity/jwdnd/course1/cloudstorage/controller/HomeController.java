@@ -1,9 +1,9 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.dto.FileDTO;
-import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
+import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
+import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileData;
-import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller class to update file, note and credential lists on Home page
+ */
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 
+    //instance fields: noteService, userService, credentialService and fileService
     private final NoteService noteService;
     private final UserService userService;
     private final CredentialService credentialService;
     private final FileService fileService;
 
-
-    public HomeController (NoteService noteService, UserService userService, CredentialService credentialService,
-                           EncryptionService encryptionService, FileService fileService){
+    //constructor:
+    public HomeController(NoteService noteService, UserService userService, CredentialService credentialService,
+                          FileService fileService){
         System.out.println("Creating HomeController");
         this.noteService = noteService;
         this.userService = userService;
@@ -32,23 +37,32 @@ public class HomeController {
         this.fileService = fileService;
     }
 
+    //include fileDTO to prevent BindingResultError
     @ModelAttribute("fileDTO")
     public FileDTO getFileDTO(){
         return new FileDTO();
     }
 
+    @ModelAttribute("noteDTO")
+    public NoteDTO getNoteDTO(){
+        return new NoteDTO();
+    }
+
+    @ModelAttribute("credentialDTO")
+    public CredentialDTO getCredentialDTO(){
+        return new CredentialDTO();
+    }
+
     @GetMapping
-    public String getHomePage(@ModelAttribute("newNote")NoteForm noteForm,
-                              @ModelAttribute("newCredential")CredentialForm credentialForm,
-                              EncryptionService encryptionService,
+    public String getHomePage(EncryptionService encryptionService,
                               Model model){
 
         //Fetching userId credentials from database
         int userId = userService.getLoggedInUsersId();
 
-        List<NoteForm> noteList = this.noteService.getNoteList(userId);
+        List<NoteDTO> noteList = this.noteService.getNoteList(userId);
         List<FileData> fileList = this.fileService.getAllFiles(userId);
-        List<CredentialForm> credentialList = this.credentialService.getCredentialList(userId);
+        List<CredentialDTO> credentialList = this.credentialService.getCredentialList(userId);
 
         model.addAttribute("notes", noteList);
         model.addAttribute("credentials", credentialList);

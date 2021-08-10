@@ -1,6 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
+import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
@@ -28,16 +28,21 @@ public class CredentialController {
         this.encryptionService = encryptionService;
     }
 
+    @ModelAttribute("credentialDTO")
+    public CredentialDTO getCredential(){
+        return new CredentialDTO();
+    }
+
     //Method to create or update new credential
     @PostMapping("add-credential")
-    public String postCredential(@ModelAttribute("newCredential")CredentialForm credentialForm, Model model){
+    public String postCredential(@ModelAttribute("credentialDTO") CredentialDTO credentialDTO, Model model){
 
         //Initialize error message
         String errorMsg = null;
         Integer userId = userService.getLoggedInUsersId();
 
         //flag to check if credential already exists
-        boolean newCred = credentialService.postCredential(credentialForm);
+        boolean newCred = credentialService.postCredential(credentialDTO);
 
         if(newCred){
             errorMsg = "credCreated";
@@ -61,8 +66,8 @@ public class CredentialController {
     public String deleteCredential(@PathVariable("credentialId") Integer credentialId,
                                    Model model){
 
-        //Initialize errorMsg
-        String errorMsg = null;
+        //Initialize resultMsg
+        String resultMsg = null;
         Integer userId = userService.getLoggedInUsersId();
 
         //fetch userName for note
@@ -79,13 +84,13 @@ public class CredentialController {
         if (credentialService.lookupCredential(credentialId) && usernameForNote.equals(loggedInUsername)){
             credentialService.deleteCredential(credentialId);
             //display credential deleted result page
-            errorMsg = "credDeleted";
+            resultMsg = "credDeleted";
         } else{
             //display credential not deleted result page
-            errorMsg = "credNotDeleted";
+            resultMsg = "credNotDeleted";
         }
 
-        model.addAttribute("result",errorMsg);
+        model.addAttribute("result",resultMsg);
 
         return "result";
     }

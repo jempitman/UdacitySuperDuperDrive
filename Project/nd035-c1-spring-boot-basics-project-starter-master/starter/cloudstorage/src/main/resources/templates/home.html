@@ -86,23 +86,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="noteForm: ${notes}">
+                                    <tr th:each="noteDTO: ${notes}">
                                         <td>
                                             <button type="button" class="btn btn-success" id="noteEdit"
-                                                    th:data-id="${noteForm.noteId}"
-                                                    th:data-title="${noteForm.noteTitle}"
-                                                    th:data-description="${noteForm.noteDescription}"
+                                                    th:data-id="${noteDTO.noteId}"
+                                                    th:data-title="${noteDTO.noteTitle}"
+                                                    th:data-description="${noteDTO.noteDescription}"
                                                     th:onclick="showNoteModal(this.getAttribute('data-id'),
                                                     this.getAttribute('data-title'),
                                                     this.getAttribute('data-description'))">
                                                 Edit</button>
                                             <a class="btn btn-danger" id="noteDelete"
-                                               th:href="@{/note/delete-note/{noteId}(noteId=${noteForm.noteId})}">
+                                               th:href="@{/note/delete-note/{noteId}(noteId=${noteDTO.noteId})}">
                                                 Delete</a>
                                         </td>
-                                        <th id="noteTableTitle" scope="row" th:text="${noteForm.noteTitle}"
+                                        <th id="noteTableTitle" scope="row" th:text="${noteDTO.noteTitle}"
                                             class="listNoteTitle">Example Note Title</th>
-                                        <td id="noteTableDescription" th:text="${noteForm.noteDescription}"
+                                        <td id="noteTableDescription" th:text="${noteDTO.noteDescription}"
                                             class="listNoteDescription">Example Note Description </td>
                                     </tr>
                                 </tbody>
@@ -120,7 +120,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" th:action="@{/note/add-note}" th:object="${newNote}"
+                                        <form action="#" th:action="@{/note/add-note}" th:object="${noteDTO}"
                                               method="POST">
                                             <input type="hidden" name="noteId" th:field="*{noteId}" id="note-id">
                                             <div class="form-group">
@@ -208,7 +208,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form action="#" method="POST" th:action="@{/credential/add-credential}"
-                                              th:object="${newCredential}">
+                                              th:object="${credentialDTO}">
                                             <input type="hidden" name="credentialId" id="credential-id"
                                                    th:field="*{credentialId}">
                                             <div class="form-group">
