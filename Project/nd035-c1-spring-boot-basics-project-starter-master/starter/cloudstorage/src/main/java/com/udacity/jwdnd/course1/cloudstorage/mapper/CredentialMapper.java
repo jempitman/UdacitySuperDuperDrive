@@ -33,8 +33,8 @@ public interface CredentialMapper {
     CredentialForm getCredential(Integer credentialId);
 
     // get userid from credential
-    @Select("SELECT userid FROM CREDENTIALS WHERE credentialid=#{noteid}")
-    public Integer getUserIdFromCredential(Integer noteid);
+    @Select("SELECT userid FROM CREDENTIALS WHERE credentialid=#{credentialId}")
+    public Integer getUserIdFromCredential(Integer credentialId);
 
 
 }

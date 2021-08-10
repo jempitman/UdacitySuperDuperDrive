@@ -6,18 +6,18 @@ public class UserData {
     private String username;
     private String salt;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
 
     //Initialization constructor for User with Object "object" where userId should
     // be to overcome initialization errors
     public UserData(Object object, String username, String salt,
-                    String password, String firstname, String lastname) {
+                    String password, String firstName, String lastName) {
         this.username = username;
         this.salt = salt;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public int getUserId() {
@@ -52,20 +52,20 @@ public class UserData {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }
