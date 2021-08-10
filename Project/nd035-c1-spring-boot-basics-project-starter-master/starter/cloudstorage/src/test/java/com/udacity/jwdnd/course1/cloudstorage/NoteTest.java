@@ -11,7 +11,7 @@ public class NoteTest extends LoginTest {
     }
 
     @Test
-    public void addNewNote() throws InterruptedException{
+    public void addNewNote() {
 
 
         login("FirstName", "LastName", "UserName", "password");
@@ -35,7 +35,7 @@ public class NoteTest extends LoginTest {
     }
 
     @Test
-    public void addNoteAndEdit() throws InterruptedException{
+    public void addNoteAndEdit() {
 
         login("FirstName", "LastName", "UserName", "password");
 
@@ -64,7 +64,7 @@ public class NoteTest extends LoginTest {
     }
 
     @Test
-    public void deleteNoteTest() throws InterruptedException{
+    public void deleteNoteTest() {
 
         login("FirstName", "LastName", "UserName", "password");
 

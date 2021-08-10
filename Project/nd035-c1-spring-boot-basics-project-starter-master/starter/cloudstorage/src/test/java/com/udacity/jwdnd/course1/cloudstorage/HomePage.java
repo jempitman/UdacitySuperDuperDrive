@@ -30,8 +30,14 @@ public class HomePage {
     @FindBy(id="nav-notes-tab")
     private WebElement notesTab;
 
+    @FindBy(id="nav-files-tab")
+    private WebElement filesTab;
+
     @FindBy(id="nav-credentials-tab")
     private WebElement credTab;
+
+    @FindBy(id="uploadFileBtn")
+    private WebElement uploadFileBtn;
 
     @FindBy(id="new-note")
     private WebElement newNoteButton;
@@ -95,6 +101,14 @@ public class HomePage {
 
     public void logout(){
         javascriptExecutor.executeScript("arguments[0].click();", logoutButton);
+    }
+
+    public void fileTabNavigation(){
+        javascriptExecutor.executeScript("arguments[0].click();", filesTab);
+    }
+
+    public void clickUploadFileBtn(){
+        javascriptExecutor.executeScript("arguments[0].click();", uploadFileBtn);
     }
 
     public void noteTabNavigation(){

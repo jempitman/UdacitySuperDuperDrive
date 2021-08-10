@@ -14,7 +14,7 @@ public class CredentialTest extends LoginTest{
     }
 
     @Test
-    public void addNewCredential() throws InterruptedException{
+    public void addNewCredential() {
 
         login("FirstName", "LastName", "UserName", "password");
 
@@ -41,7 +41,7 @@ public class CredentialTest extends LoginTest{
     }
 
     @Test
-    public void addCredAndEdit() throws InterruptedException{
+    public void addCredAndEdit(){
 
         login("FirstName", "LastName", "UserName", "password");
 
@@ -80,7 +80,7 @@ public class CredentialTest extends LoginTest{
     }
 
     @Test
-    public void deleteCredTest() throws InterruptedException{
+    public void deleteCredTest(){
 
         login("FirstName", "LastName", "UserName", "password");
 
