@@ -1,36 +1,32 @@
 package com.udacity.jwdnd.course1.cloudstorage.dto;
 
+/**
+ * Note Data Transfer Object to map data from Note Modal to NoteService layer
+ */
+
 public class NoteDTO {
 
-
-    private Integer noteId;
+    //instance fields: noteId, noteTitle, noteDescription, userId
+    private String noteId;
     private String noteTitle;
     private String noteDescription;
-    private Integer userId;
+    private String userId;
 
-    /*
-    public NoteDTO(Integer noteId, String noteTitle, String noteDescription, Integer userId) {
-        this.noteId = noteId;
-        this.noteTitle = noteTitle;
-        this.noteDescription = noteDescription;
-        this.userId = userId;
-    }
+    //Getters and setters for instance fields below
 
-     */
-
-    public Integer getNoteId() {
+    public String getNoteId() {
         return noteId;
     }
 
-    public void setNoteId(Integer noteId) {
+    public void setNoteId(String noteId) {
         this.noteId = noteId;
     }
 
-    public Integer getUserId(){
+    public String getUserId(){
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

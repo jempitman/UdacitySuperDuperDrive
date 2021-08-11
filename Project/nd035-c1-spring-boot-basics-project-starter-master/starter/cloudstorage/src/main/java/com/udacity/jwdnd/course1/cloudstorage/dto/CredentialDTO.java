@@ -1,25 +1,19 @@
 package com.udacity.jwdnd.course1.cloudstorage.dto;
 
+/**
+ * Credential Data Transfer Object to map data from Credential modal to CredentialService layer
+ */
 public class CredentialDTO {
 
+    //Instance fields: credentialId, url, userName, key, password, userId
     private String credentialId;
     private String url;
     private String userName;
     private String key;
     private String password;
-    private Integer userid;
+    private String userId;
 
-    /*
-    public CredentialDTO(String credentialId, String url, String userName, String key, String password, Integer userid) {
-        this.credentialId = credentialId;
-        this.url = url;
-        this.userName = userName;
-        this.key = key;
-        this.password = password;
-        this.userid = userid;
-    }
-
-     */
+    //Getters and Setters for instance fields below
 
     public String getCredentialId() {
         return credentialId;
@@ -61,11 +55,11 @@ public class CredentialDTO {
         this.password = password;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
