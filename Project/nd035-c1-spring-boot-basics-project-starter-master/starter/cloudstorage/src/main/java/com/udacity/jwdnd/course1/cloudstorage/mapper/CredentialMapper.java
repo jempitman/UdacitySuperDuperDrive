@@ -15,7 +15,7 @@ public interface CredentialMapper {
 
     //Return all credentials belonging to a particular userid
     @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userId}")
-    public List<CredentialDTO> getCredentialList(Integer userId);
+    List<CredentialDTO> getCredentialList(Integer userId);
 
     //Add new credential
     @Insert("INSERT INTO CREDENTIALS (url, username, key, password, userid) " +

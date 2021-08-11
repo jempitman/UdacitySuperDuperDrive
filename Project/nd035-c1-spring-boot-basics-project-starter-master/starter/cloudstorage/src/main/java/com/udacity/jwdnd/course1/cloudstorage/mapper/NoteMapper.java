@@ -36,6 +36,6 @@ public interface NoteMapper {
     NoteDTO getNote(Integer noteId);
 
     @Select("SELECT userid FROM NOTES WHERE noteid=#{noteId}")
-    public Integer getUserIdFromNote(Integer noteId);
+    Integer getUserIdFromNote(Integer noteId);
 
 }

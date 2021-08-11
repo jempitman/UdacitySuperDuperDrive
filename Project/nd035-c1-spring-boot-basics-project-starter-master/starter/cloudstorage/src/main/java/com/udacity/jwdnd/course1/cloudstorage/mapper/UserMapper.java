@@ -21,6 +21,6 @@ public interface UserMapper {
     int createUser(UserData user);
 
     @Select("SELECT username FROM USERS WHERE userId=#{userId}")
-    public String getUsernameId(Integer userId);
+    String getUsernameId(Integer userId);
 
 }
