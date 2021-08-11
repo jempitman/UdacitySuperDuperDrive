@@ -1,12 +1,18 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+/**
+ * Model class to map data from NoteDTO to Notes database
+ */
+
 public class Note {
 
+    //instance fields: noteId, noteTitle, noteDescription, userId
     private Integer noteId;
     private String noteTitle;
     private String noteDescription;
     private Integer userId;
 
+    //Class constructor
     public Note(Integer noteId, String noteTitle, String noteDescription, Integer userId) {
         this.noteId = noteId;
         this.noteTitle = noteTitle;
@@ -14,9 +20,12 @@ public class Note {
         this.userId = userId;
     }
 
+    //Empty constructor
     public Note(){
 
     }
+
+    //Getters and Setters for instance fields
 
     public Integer getNoteId() {
         return noteId;

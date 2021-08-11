@@ -1,29 +1,35 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+/**
+ * Model class to map multipartFile data from fileDTO to Files database
+ */
 public class FileData {
 
-    //fields
+    //instance fields: fileId, fileName, contentType, fileSize,
     private Integer fileId;
     private String fileName;
     private String contentType;
     private Long fileSize;
-    private Integer userid;
+    private Integer userId;
     private byte[] fileData;
+
+    //Class constructor
+    public FileData(Integer fileId, String fileName, String contentType, Long fileSize, Integer userId, byte[] fileData) {
+        this.fileId = fileId;
+        this.fileName = fileName;
+        this.contentType = contentType;
+        this.fileSize = fileSize;
+        this.userId = userId;
+        this.fileData = fileData;
+    }
+
+    //Getters and Setters for the instance fields below:
 
     public byte[] getFileData() {
         return fileData;
     }
 
     public void setFileData(byte[] fileData) {
-        this.fileData = fileData;
-    }
-
-    public FileData(Integer fileId, String fileName, String contentType, Long fileSize, Integer userid, byte[] fileData) {
-        this.fileId = fileId;
-        this.fileName = fileName;
-        this.contentType = contentType;
-        this.fileSize = fileSize;
-        this.userid = userid;
         this.fileData = fileData;
     }
 
@@ -59,12 +65,12 @@ public class FileData {
         this.fileSize = fileSize;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userId) {
-        this.userid = userId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
 }

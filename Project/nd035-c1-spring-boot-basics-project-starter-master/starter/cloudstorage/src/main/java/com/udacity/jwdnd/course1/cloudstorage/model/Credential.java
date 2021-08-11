@@ -1,26 +1,35 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+/**
+ * Model class to map credential data from credentialDTO to credentials database
+ */
+
 public class Credential {
 
+    //instance fields: credentialId, url, userName, key, password, userId
     private Integer credentialId;
     private String url;
     private String userName;
     private String key;
     private String password;
-    private Integer userid;
+    private Integer userId;
 
-    public Credential(Integer credentialId, String url, String userName, String key, String password, Integer userid) {
+    //Class constructor
+    public Credential(Integer credentialId, String url, String userName, String key, String password, Integer userId) {
         this.credentialId = credentialId;
         this.url = url;
         this.userName = userName;
         this.key = key;
         this.password = password;
-        this.userid = userid;
+        this.userId = userId;
     }
 
+    //Empty class constructor
     public Credential(){
 
     }
+
+    //Getters and Setters for instance fields
 
     public Integer getCredentialId() {
         return credentialId;
@@ -62,11 +71,11 @@ public class Credential {
         this.password = password;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

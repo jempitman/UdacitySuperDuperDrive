@@ -1,7 +1,11 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+/**
+ * Model class to map user data to User database
+ */
 public class UserData {
 
+    //instance fields: userId, username, salt, password, firstName, lastName
     private Integer userId;
     private String username;
     private String salt;
@@ -19,6 +23,8 @@ public class UserData {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    //Getters and Setters for instance fields below:
 
     public int getUserId() {
         return userId;
