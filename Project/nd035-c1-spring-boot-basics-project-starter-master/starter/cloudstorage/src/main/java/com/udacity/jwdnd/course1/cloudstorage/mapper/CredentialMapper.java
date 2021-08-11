@@ -6,16 +6,20 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+/**
+ * Mapper class to perform SQL operations on Credentials database
+ */
+
 @Mapper
 public interface CredentialMapper {
 
     //Return all credentials belonging to a particular userid
-    @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userid}")
-    public List<CredentialDTO> getCredentialList(Integer userid);
+    @Select("SELECT * FROM CREDENTIALS WHERE userid = #{userId}")
+    public List<CredentialDTO> getCredentialList(Integer userId);
 
     //Add new credential
     @Insert("INSERT INTO CREDENTIALS (url, username, key, password, userid) " +
-            "VALUES (#{url}, #{userName}, #{key}, #{password}, #{userid})")
+            "VALUES (#{url}, #{userName}, #{key}, #{password}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "credentialId")
     void createCredential(Credential credential);
 

@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-/*
-
+/**
+ * Mapper class to perform SQL updates on Notes database
  */
 
 @Mapper
@@ -31,7 +31,7 @@ public interface NoteMapper {
     @Update("UPDATE NOTES SET notetitle=#{noteTitle}, notedescription=#{noteDescription} WHERE noteid=#{noteId}")
     void updateNote(Note note);
 
-    //get note according to noteid
+    //get note according to noteId
     @Select("SELECT * FROM NOTES WHERE noteid=#{noteId}")
     NoteDTO getNote(Integer noteId);
 

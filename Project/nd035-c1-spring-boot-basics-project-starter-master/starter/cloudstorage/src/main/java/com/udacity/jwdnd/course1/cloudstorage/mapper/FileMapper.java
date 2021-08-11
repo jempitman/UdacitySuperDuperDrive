@@ -5,6 +5,10 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+/**
+ * Mapper class to perform SQL operations on File database
+ */
+
 @Mapper
 public interface FileMapper {
 
