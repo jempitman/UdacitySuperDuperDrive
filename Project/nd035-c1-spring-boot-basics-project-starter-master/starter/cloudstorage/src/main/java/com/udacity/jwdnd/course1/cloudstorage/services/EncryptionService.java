@@ -2,7 +2,6 @@ package com.udacity.jwdnd.course1.cloudstorage.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.*;
@@ -12,10 +11,16 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * Service to encrypt and decrypt user and credential passwords
+ */
+
 @Service
 public class EncryptionService {
-    private Logger logger = LoggerFactory.getLogger(EncryptionService.class);
+    //instance field: Logger
+    private final Logger logger = LoggerFactory.getLogger(EncryptionService.class);
 
+    //password encryption
     public String encryptValue(String data, String key) {
         byte[] encryptedValue = null;
 
@@ -32,6 +37,7 @@ public class EncryptionService {
         return Base64.getEncoder().encodeToString(encryptedValue);
     }
 
+    //password decryption
     public String decryptValue(String data, String key) {
         byte[] decryptedValue = null;
 

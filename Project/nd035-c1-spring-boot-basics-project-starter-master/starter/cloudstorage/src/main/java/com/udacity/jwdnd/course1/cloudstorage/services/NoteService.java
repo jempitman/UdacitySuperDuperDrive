@@ -8,15 +8,19 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+/**
+ * Service class to handle creation, deletion and updates of user notes
+ */
+
 @Service
 public class NoteService {
 
-    private NoteMapper noteMapper;
+    //instance fields: noteMapper, userService
+    private final NoteMapper noteMapper;
+    private final UserService userService;
 
-    private UserService userService;
-
+    //Class constructor
     public NoteService(NoteMapper noteMapper, UserService userService){
-
         this.noteMapper = noteMapper;
         this.userService = userService;
     }
@@ -34,6 +38,7 @@ public class NoteService {
         return noteMapper.getNote(noteid);
     }
 
+    //create or update note
     public boolean postNote(NoteDTO noteDTO){
         //flag to check if a new Note is being created.
         boolean newNote;
@@ -43,11 +48,12 @@ public class NoteService {
         note.setNoteDescription(noteDTO.getNoteDescription());
         note.setUserId(userService.getLoggedInUsersId());
 
-        if (noteDTO.getNoteId()==0){
+        //check if note is being created or updated
+        if (noteDTO.getNoteId()==null){
             noteMapper.createNote(note);
             newNote = true;
         } else{
-            note.setNoteId(noteDTO.getNoteId());
+            note.setNoteId(Integer.valueOf(noteDTO.getNoteId()));
             noteMapper.updateNote(note);
             newNote = false;
         }

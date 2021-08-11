@@ -10,17 +10,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service class to handle user authentication requests
+ */
+
 @Service
 public class AuthenticationService implements AuthenticationProvider {
 
+    //instance fields: userMapper, hashService
     private final UserMapper userMapper;
     private final HashService hashService;
 
+    //Class constructor
     public AuthenticationService(UserMapper userMapper, HashService hashService) {
         this.userMapper = userMapper;
         this.hashService = hashService;
     }
 
+    //Method to check whether a users password matches the encrypted password in the User database
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 

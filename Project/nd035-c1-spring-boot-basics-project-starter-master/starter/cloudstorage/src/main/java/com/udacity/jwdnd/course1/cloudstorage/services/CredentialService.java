@@ -9,19 +9,25 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * Service class to perform credential creation, update and deletion tasks
+ */
 @Service
 public class CredentialService {
 
-    private CredentialMapper credentialMapper;
-    private UserService userService;
-    private EncryptionService encryptionService;
+    //instance fields: credentialMapper, userService, encryptionService
+    private final CredentialMapper credentialMapper;
+    private final UserService userService;
+    private final EncryptionService encryptionService;
 
+    //Class constructor
     public CredentialService(CredentialMapper credentialMapper, UserService userService, EncryptionService encryptionService) {
         this.credentialMapper = credentialMapper;
         this.userService = userService;
         this.encryptionService = encryptionService;
     }
 
+    //fetch credential list from database
     public List<CredentialDTO> getCredentialList(Integer userId){
         return credentialMapper.getCredentialList(userId);
     }
@@ -30,6 +36,7 @@ public class CredentialService {
         return credentialMapper.getCredential(credentialId);
     }
 
+    //create credential
     public boolean postCredential(CredentialDTO credentialDTO){
         //flag to check is a new Credential is being created
         boolean newCred;
@@ -37,7 +44,9 @@ public class CredentialService {
 
         credential.setUrl(credentialDTO.getUrl());
         credential.setUserName(credentialDTO.getUserName());
-        credential.setUserid(userService.getLoggedInUsersId());
+        credential.setUserId(userService.getLoggedInUsersId());
+
+        //encrypt password
         SecureRandom random = new SecureRandom();
         byte[] key = new byte[16];
         random.nextBytes(key);
@@ -47,6 +56,7 @@ public class CredentialService {
         credential.setKey(encodedKey);
         credential.setPassword(encryptedPassword);
 
+        //check if credential is being created or updated
         if (credentialDTO.getCredentialId().isEmpty()){
             credentialMapper.createCredential(credential);
             newCred = true;
@@ -70,14 +80,6 @@ public class CredentialService {
 
     public boolean lookupCredential(Integer credentialId){
         return credentialMapper.getCredential(credentialId)!=null;
-    }
-
-    private String passwordEncryption(CredentialDTO credentialDTO){
-        SecureRandom random = new SecureRandom();
-        byte[] key = new byte[16];
-        random.nextBytes(key);
-        String encodedKey = Base64.getEncoder().encodeToString(key);
-        return encryptionService.encryptValue(credentialDTO.getPassword(),encodedKey);
     }
 
 }

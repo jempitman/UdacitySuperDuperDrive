@@ -8,12 +8,18 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/**
+ * Service class to handle user creation requests
+ */
+
 @Service
 public class UserService {
 
+    //instance fields: userMapper, hashService
     private final UserMapper userMapper;
-    private HashService hashService;
+    private final HashService hashService;
 
+    //Class constructor
     public UserService(UserMapper userMapper, HashService hashService) {
         this.userMapper = userMapper;
         this.hashService = hashService;
@@ -24,11 +30,13 @@ public class UserService {
     }
 
     public int createUser(UserData user){
+        //encrypt password
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
         String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
+        //add user to User database
         return userMapper.createUser(new UserData(null, user.getUsername(), encodedSalt, hashedPassword,
                 user.getFirstName(), user.getLastName()));
     }

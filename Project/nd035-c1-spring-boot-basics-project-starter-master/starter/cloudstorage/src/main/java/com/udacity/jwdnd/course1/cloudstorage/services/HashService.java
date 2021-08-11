@@ -11,10 +11,15 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
+/**
+ * supporting class to EncryptionService to encrypt credential and user passwords
+ */
 @Component
 public class HashService {
-    private Logger logger = LoggerFactory.getLogger(HashService.class);
+    //instance field
+    private final Logger logger = LoggerFactory.getLogger(HashService.class);
 
+    //password hashing method
     public String getHashedValue(String data, String salt) {
         byte[] hashedValue = null;
 

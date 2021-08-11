@@ -9,11 +9,17 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Service class to handle upload, delete and duplicate fileCheck requests
+ */
+
 @Service
 public class FileService {
 
-    private FileMapper fileMapper;
+    //instance field: fileMapper
+    private final FileMapper fileMapper;
 
+    //Class constructor
     public FileService(FileMapper fileMapper) {
         this.fileMapper = fileMapper;
     }
@@ -43,12 +49,14 @@ public class FileService {
         return fileMapper.getFileFromFileId(fileId);
     }
 
+    //check for file duplicity
     public boolean duplicityCheck(MultipartFile file, int userid){
 
         boolean duplicateFile = false;
         String fileName = file.getOriginalFilename();
         List<FileData> fileList = getAllFiles(userid);
 
+        //search through file list for files with the same name
         for (FileData fileData : fileList) {
             assert fileName != null;
             if (fileName.equals(fileData.getFileName())) {
