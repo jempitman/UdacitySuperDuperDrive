@@ -27,6 +27,8 @@
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
+
+                    <!--File tab details-->
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel"
                          aria-labelledby="nav-files-tab">
                         <form action="#" th:action="@{/home/file/newFile}" th:object="${fileDTO}"
@@ -70,6 +72,8 @@
                             </table>
                         </div>
                     </div>
+
+                    <!--Note tab details-->
                     <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
                         <button style="margin: 0.25em;" type="button" id="new-note" class="btn btn-info float-right"
                                 onclick="showNoteModal(0,'','')">
@@ -109,6 +113,7 @@
                             </table>
                         </div>
 
+                        <!--Note Modal details -->
                         <div class="modal fade" id="noteModal" tabindex="-1" role="dialog"
                              aria-labelledby="noteModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -149,6 +154,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--Credential tab details-->
                     <div class="tab-pane fade" id="nav-credentials" role="tabpanel"
                          aria-labelledby="nav-credentials-tab">
                         <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" id="new-cred"
@@ -196,6 +203,7 @@
                             </table>
                         </div>
 
+                        <!--Credential Modal details-->
                         <div class="modal fade" id="credentialModal" tabindex="-1" role="dialog"
                              aria-labelledby="credentialModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -249,7 +257,6 @@
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
 
-        <!--For opening the note modal-->
         <script type="text/javascript">
             // For opening the note modal
             function showNoteModal(noteId, noteTitle, noteDescription) {
