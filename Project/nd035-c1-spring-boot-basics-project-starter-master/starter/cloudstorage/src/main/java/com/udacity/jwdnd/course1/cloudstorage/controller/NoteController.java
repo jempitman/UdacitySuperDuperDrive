@@ -31,7 +31,7 @@ public class NoteController {
 
         boolean newNote = noteService.postNote(noteDTO);
         Integer userId = userService.getLoggedInUsersId();
-        String resultMsg = null;
+        String resultMsg;
 
 
 

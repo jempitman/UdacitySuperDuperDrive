@@ -38,7 +38,7 @@ public class CredentialController {
     public String postCredential(@ModelAttribute("credentialDTO") CredentialDTO credentialDTO, Model model){
 
         //Initialize error message
-        String errorMsg = null;
+        String errorMsg;
         Integer userId = userService.getLoggedInUsersId();
 
         //flag to check if credential already exists
@@ -55,7 +55,7 @@ public class CredentialController {
         }
         model.addAttribute("result", errorMsg);
 
-        //refresh model encryptionService to continue encrypting credential passwords
+
         model.addAttribute("encryptionService", encryptionService);
 
         return "result";

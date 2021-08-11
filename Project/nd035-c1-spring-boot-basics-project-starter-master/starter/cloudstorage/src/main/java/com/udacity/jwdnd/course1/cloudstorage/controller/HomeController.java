@@ -60,10 +60,12 @@ public class HomeController {
         //Fetching userId credentials from database
         int userId = userService.getLoggedInUsersId();
 
+        //fetch file, note and credential lists from db
         List<NoteDTO> noteList = this.noteService.getNoteList(userId);
         List<FileData> fileList = this.fileService.getAllFiles(userId);
         List<CredentialDTO> credentialList = this.credentialService.getCredentialList(userId);
 
+        //Update file, note and credential lists on HomePage
         model.addAttribute("notes", noteList);
         model.addAttribute("credentials", credentialList);
         model.addAttribute("encryptionService",encryptionService);

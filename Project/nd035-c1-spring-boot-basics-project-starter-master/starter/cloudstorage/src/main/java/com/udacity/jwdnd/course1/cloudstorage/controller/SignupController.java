@@ -9,45 +9,49 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Controller to handle requests from signup.html page
+ */
+
 @Controller
 @RequestMapping("/signup")
 public class SignupController {
 
-    private UserService userService;
+    //instance fields: userService to create new user in database
+    private final UserService userService;
 
-
+    //Class constructor
     public SignupController (UserService userService){
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String signupView(Model model){
         return "signup";
     }
 
-    @PostMapping()
+    //Method to signup user
+    @PostMapping
     public String signupUser(@ModelAttribute UserData user, Model model){
         String signupError = null;
 
+        //check whether userName already exists
         if (!userService.isUsernameAvailable(user.getUsername())){
             signupError = "The username already exists";
         }
 
+        //create user and check whether the user database was updated correctly
         if (signupError == null){
             int rowsAdded = userService.createUser(user);
             if (rowsAdded < 0){
                 signupError = "There was an error signing you up. Please try again.";
+            } else{
+                model.addAttribute("signupSuccess", true);
             }
-        }
-
-        if (signupError == null){
-            model.addAttribute("signupSuccess", true);
-        } else {
+        } else{
             model.addAttribute("signupError", signupError);
         }
 
         return "signup";
-
     }
-
 }
