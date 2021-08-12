@@ -13,17 +13,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+
+/**
+ * Helper class for NoteTest and Credential to hold WebElements and perform
+ * basic clicking and filling operations on home.html
+ */
 public class HomePage {
 
+    //instance fields
     private final JavascriptExecutor javascriptExecutor;
     private final WebDriverWait wait;
 
+    //Class constructor
     public HomePage(WebDriver driver, int waitTimeOut){
         PageFactory.initElements(driver, this);
         this.javascriptExecutor = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, waitTimeOut);
     }
 
+    //Login page WebElements
     @FindBy(id="logout")
     private WebElement logoutButton;
 
@@ -99,6 +107,7 @@ public class HomePage {
     @FindBy(id="credTablePassword")
     private WebElement credTablePassword;
 
+    //CLicking and filling operations
     public void logout(){
         javascriptExecutor.executeScript("arguments[0].click();", logoutButton);
     }
@@ -198,7 +207,9 @@ public class HomePage {
 
     public Note getNoteList() {
         Note note = new Note();
-        note.setNoteTitle(wait.until(ExpectedConditions.elementToBeClickable(noteTableTitle)).getText());
+        //wait for note tab to load
+        wait.until(ExpectedConditions.elementToBeClickable(noteTableTitle));
+        note.setNoteTitle(noteTableTitle.getText());
         note.setNoteDescription(noteTableDescription.getText());
 
         return note;
@@ -207,7 +218,9 @@ public class HomePage {
 
     public Credential getCredList() {
         Credential credential = new Credential();
-        credential.setUrl(wait.until(ExpectedConditions.elementToBeClickable(credTableUrl)).getText());
+        //wait for credential tab to load
+        wait.until(ExpectedConditions.elementToBeClickable(credTableUrl));
+        credential.setUrl(credTableUrl.getText());
         credential.setUserName(credTableUserName.getText());
         credential.setPassword(credTablePassword.getText());
 

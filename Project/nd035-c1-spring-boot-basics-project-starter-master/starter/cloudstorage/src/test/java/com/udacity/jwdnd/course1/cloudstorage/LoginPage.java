@@ -8,19 +8,25 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * LoginTest helper class to hold WebElements and perform basic filling operations for
+ * login.html
+ */
+
 public class LoginPage {
 
-    private WebDriver driver;
+    //instance fields
     private final JavascriptExecutor javascriptExecutor;
     private final WebDriverWait wait;
 
+    //Class constructor
     public LoginPage(WebDriver driver, int waitTimeOut){
-        this.driver = driver;
         PageFactory.initElements(driver, this);
         this.javascriptExecutor = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, waitTimeOut);
     }
 
+    //Login page WebElements
     @FindBy(id="inputUsername")
     private WebElement inputUsername;
 
@@ -36,6 +42,7 @@ public class LoginPage {
     @FindBy(id="logout-msg")
     private WebElement logoutMsg;
 
+    //basic clicking and form filling operations on login page
 
     public void fillLogin(String username, String password) {
         //System.out.println("Entering username details");
@@ -44,7 +51,7 @@ public class LoginPage {
 
         javascriptExecutor.executeScript("arguments[0].value='" + username +
                 "';", inputUsername);
-        System.out.println("Entering password details");
+        //System.out.println("Entering password details");
         javascriptExecutor.executeScript("arguments[0].value='" + password +
                 "';", inputPassword);
 
@@ -71,6 +78,11 @@ public class LoginPage {
 
     public String displayLogoutMessage(){
         return logoutMsg.getText();
+    }
+
+    public void login(String username, String password){
+        fillLogin(username,password);
+        clickLogin();
     }
 
 

@@ -8,18 +8,24 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * SignupTest helper class to hold WebElements and perform click or filling operations
+ * on signup.html
+ */
 public class SignupPage {
 
-    private JavascriptExecutor javascriptExecutor;
-    private WebDriver driver;
+    //Instance fields: JavascriptExecutor, WebdriverWait
+    private final JavascriptExecutor javascriptExecutor;
     private final WebDriverWait wait;
 
+    //Class constructor
     public SignupPage(WebDriver driver, int waitTimeOut){
-        this.driver = driver;
         PageFactory.initElements(driver, this);
         this.javascriptExecutor = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, waitTimeOut);
     }
+
+    //WebElements
 
     //capture inputFirstName
     @FindBy(id = "inputFirstName")
@@ -47,8 +53,10 @@ public class SignupPage {
     @FindBy(id="success-msg")
     private WebElement successMsg;
 
-    public void fillSignup(String firstName, String lastName, String userName, String password) {
+    //filling and clicking operations
 
+    public void fillSignup(String firstName, String lastName, String userName, String password) {
+        //wait for signup page to load
         wait.until(ExpectedConditions.elementToBeClickable(inputFirstName));
          javascriptExecutor.executeScript("arguments[0].value='" + firstName +
                 "';", inputFirstName);
@@ -67,16 +75,17 @@ public class SignupPage {
         //System.out.println(">>> SignupPage: signed up ...");
     }
 
-    public void clickLogin(){
-
-    }
-
     public boolean isSuccess(){
         return successMsg != null;
     }
 
     public boolean isError(){
         return errorMsg != null;
+    }
+
+    public void signUp(String firstName, String lastName, String username, String password){
+        fillSignup(firstName,lastName,username,password);
+        clickSignup();
     }
 
 }

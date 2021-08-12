@@ -8,17 +8,25 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * CredentialTest and NoteTest helper class to hold WebElements and perform click
+ * functions on result.html
+ */
+
 public class ResultPage {
 
+    //instance fields: JavascriptExecutor and WebDriverWait
     private final JavascriptExecutor javascriptExecutor;
     private final WebDriverWait wait;
 
+    //Class constructor
     public ResultPage(WebDriver driver, int waitTimeOut) {
         PageFactory.initElements(driver, this);
         javascriptExecutor = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, waitTimeOut);
     }
 
+    //WebElements
     @FindBy(id="noteCreated")
     private WebElement noteCreated;
 
@@ -40,6 +48,7 @@ public class ResultPage {
     @FindBy(id="cEditSuccess")
     private WebElement cEditSuccess;
 
+    //Click functions for various success messages
     public void clickNoteCreationSuccess(){
         javascriptExecutor.executeScript("arguments[0].click()",
                 wait.until(ExpectedConditions.elementToBeClickable(nCreationSuccess)));
