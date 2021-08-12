@@ -3,11 +3,17 @@ package com.udacity.jwdnd.course1.cloudstorage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class built on top of SignupTest to perform login tests
+ */
+
 public class LoginTest extends SignupTest{
 
+    //Class constructor
     public LoginTest() {
     }
 
+    //check that Login page is available to unauthorized users
     @Test
     public void getLoginPage(){
         driver.get(baseURL + "/login");
@@ -17,6 +23,9 @@ public class LoginTest extends SignupTest{
     //Test that unauthorized page requests redirect to the login page
     @Test
     public void loginRedirect(){
+        HomePage homePage = new HomePage(driver, 1);
+        homePage.logout();
+
         driver.get(baseURL + "/home");
         Assertions.assertEquals(baseURL + "/login", driver.getCurrentUrl());
 
@@ -51,6 +60,8 @@ public class LoginTest extends SignupTest{
 
     @Test
     public void failedLogin(){
+        HomePage homePage = new HomePage(driver, 1);
+        homePage.logout();
 
         driver.get(baseURL + "/home");
         LoginPage loginPage = new LoginPage(driver, 1);
@@ -59,22 +70,6 @@ public class LoginTest extends SignupTest{
 
         Assertions.assertTrue(loginPage.isError());
     }
-
-    public void login(String firstName, String lastName, String userName, String password){
-        driver.get(baseURL + "/signup");
-        SignupPage signupPage = new SignupPage(driver, 1000);
-        signupPage.fillSignup(firstName, lastName, userName, password);
-        signupPage.clickSignup();
-
-        driver.get(baseURL + "/login");
-
-        LoginPage loginPage = new LoginPage(driver, 1);
-        loginPage.fillLogin(userName, password);
-        loginPage.clickLogin();
-    }
-
-
-
 
 
 }
