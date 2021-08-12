@@ -30,12 +30,12 @@ public class NoteService {
         System.out.println("Creating HomeService bean");
     }
 
-    public List<NoteDTO> getNoteList(Integer userId){
+    public List<Note> getNoteList(Integer userId){
         return noteMapper.getNoteList(userId);
     }
 
-    public NoteDTO getNote(Integer noteid){
-        return noteMapper.getNote(noteid);
+    public Note getNote(Integer noteId){
+        return noteMapper.getNote(noteId);
     }
 
     //create or update note
@@ -45,18 +45,28 @@ public class NoteService {
         Note note = new Note();
 
         note.setNoteTitle(noteDTO.getNoteTitle());
+        System.out.println(note.getNoteTitle());
         note.setNoteDescription(noteDTO.getNoteDescription());
+        System.out.println(note.getNoteDescription());
         note.setUserId(userService.getLoggedInUsersId());
+        System.out.println(note.getUserId());
 
         //check if note is being created or updated
-        if (noteDTO.getNoteId()==null){
+        if (noteDTO.getNoteId().isEmpty()){
             noteMapper.createNote(note);
+            System.out.println("Note added to db");
+            System.out.println("NoteId is" + note.getNoteId());
+            Integer noteId = note.getNoteId();
+            Note noteInDb = noteMapper.getNote(noteId);
+            System.out.println("Note title in db: " + noteInDb.getNoteDescription());
             newNote = true;
         } else{
-            note.setNoteId(Integer.valueOf(noteDTO.getNoteId()));
+            note.setNoteId(Integer.parseInt(noteDTO.getNoteId()));
             noteMapper.updateNote(note);
             newNote = false;
         }
+
+        //System.out.println("Note not added to db");
         return newNote;
     }
 

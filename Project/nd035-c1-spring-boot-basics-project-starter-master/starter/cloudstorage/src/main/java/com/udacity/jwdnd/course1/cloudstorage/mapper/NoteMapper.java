@@ -1,6 +1,5 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
-import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import org.apache.ibatis.annotations.*;
 
@@ -14,8 +13,8 @@ import java.util.List;
 public interface NoteMapper {
 
     //Return all notes belonging to a particular userid
-    @Select("SELECT * FROM NOTES WHERE userId = #{userId}")
-    public List<NoteDTO> getNoteList(Integer userId);
+    @Select("SELECT * FROM NOTES WHERE userid = #{userId}")
+    List<Note> getNoteList(Integer userId);
 
     //Add new note
     @Insert("INSERT INTO NOTES (notetitle, notedescription, userid) " +
@@ -33,7 +32,7 @@ public interface NoteMapper {
 
     //get note according to noteId
     @Select("SELECT * FROM NOTES WHERE noteid=#{noteId}")
-    NoteDTO getNote(Integer noteId);
+    Note getNote(Integer noteId);
 
     @Select("SELECT userid FROM NOTES WHERE noteid=#{noteId}")
     Integer getUserIdFromNote(Integer noteId);

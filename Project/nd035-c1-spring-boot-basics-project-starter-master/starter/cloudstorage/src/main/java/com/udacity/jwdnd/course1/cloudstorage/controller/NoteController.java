@@ -2,6 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 
 import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
+import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("note")
 public class NoteController {
 
-    private NoteService noteService;
-    private UserService userService;
+    private final NoteService noteService;
+    private final UserService userService;
 
     public NoteController(NoteService noteService, UserService userService){
         this.noteService = noteService;
@@ -30,10 +31,12 @@ public class NoteController {
     public String postNote(@ModelAttribute("noteDTO") NoteDTO noteDTO, Model model){
 
         boolean newNote = noteService.postNote(noteDTO);
+
         Integer userId = userService.getLoggedInUsersId();
+
+
+        model.addAttribute("notes", noteService.getNoteList(userId));
         String resultMsg;
-
-
 
         if (newNote){
             resultMsg = "noteCreated";
@@ -43,15 +46,13 @@ public class NoteController {
         }
         model.addAttribute("result", resultMsg);
 
-        model.addAttribute("notes", noteService.getNoteList(userId));
-        //model.addAttribute("result", "success");
-
+        System.out.println();
         return "result";
 
     }
 
     @GetMapping(value = "/get-note/{noteId}")
-    public NoteDTO getNote(@PathVariable("noteId") Integer noteId){
+    public Note getNote(@PathVariable("noteId") Integer noteId){
         return noteService.getNote(noteId);
     }
 

@@ -25,7 +25,7 @@ public interface CredentialMapper {
 
     // Credential deletion operation
     @Delete("DELETE FROM CREDENTIALS WHERE credentialId = #{credentialId}")
-    void deleteCredential(Integer noteid);
+    void deleteCredential(Integer noteId);
 
     //Update and edit an existing credential
     @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{userName}, key=#{key}, " +

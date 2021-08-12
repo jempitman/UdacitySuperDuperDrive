@@ -1,9 +1,10 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
+import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.dto.FileDTO;
 import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
-import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileData;
+import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +62,7 @@ public class HomeController {
         int userId = userService.getLoggedInUsersId();
 
         //fetch file, note and credential lists from db
-        List<NoteDTO> noteList = this.noteService.getNoteList(userId);
+        List<Note> noteList = this.noteService.getNoteList(userId);
         List<FileData> fileList = this.fileService.getAllFiles(userId);
         List<CredentialDTO> credentialList = this.credentialService.getCredentialList(userId);
 

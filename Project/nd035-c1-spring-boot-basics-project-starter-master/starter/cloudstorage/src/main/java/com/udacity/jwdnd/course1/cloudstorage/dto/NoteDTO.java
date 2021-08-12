@@ -10,7 +10,7 @@ public class NoteDTO {
     private String noteId;
     private String noteTitle;
     private String noteDescription;
-    private String userId;
+    //private String userId;
 
     //Getters and setters for instance fields below
 
@@ -22,6 +22,7 @@ public class NoteDTO {
         this.noteId = noteId;
     }
 
+    /*
     public String getUserId(){
         return userId;
     }
@@ -29,6 +30,8 @@ public class NoteDTO {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+     */
 
     public String getNoteTitle() {
         return noteTitle;
