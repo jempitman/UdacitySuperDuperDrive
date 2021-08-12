@@ -45,20 +45,15 @@ public class NoteService {
         Note note = new Note();
 
         note.setNoteTitle(noteDTO.getNoteTitle());
-        System.out.println(note.getNoteTitle());
+        //System.out.println(note.getNoteTitle());
         note.setNoteDescription(noteDTO.getNoteDescription());
-        System.out.println(note.getNoteDescription());
+        //System.out.println(note.getNoteDescription());
         note.setUserId(userService.getLoggedInUsersId());
-        System.out.println(note.getUserId());
+        //System.out.println(note.getUserId());
 
         //check if note is being created or updated
         if (noteDTO.getNoteId().isEmpty()){
             noteMapper.createNote(note);
-            System.out.println("Note added to db");
-            System.out.println("NoteId is" + note.getNoteId());
-            Integer noteId = note.getNoteId();
-            Note noteInDb = noteMapper.getNote(noteId);
-            System.out.println("Note title in db: " + noteInDb.getNoteDescription());
             newNote = true;
         } else{
             note.setNoteId(Integer.parseInt(noteDTO.getNoteId()));
