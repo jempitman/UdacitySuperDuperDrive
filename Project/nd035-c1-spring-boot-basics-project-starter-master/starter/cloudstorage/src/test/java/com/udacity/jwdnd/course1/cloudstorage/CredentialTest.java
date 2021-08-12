@@ -4,25 +4,29 @@ import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class built on top of LoginTest to perform credential creation, edit and deletion tests
+ */
 public class CredentialTest extends LoginTest{
 
-    //private EncryptionService encryptionService;
-
+    //Class constructor
     public CredentialTest(){
-        //this.encryptionService = encryptionService;
 
     }
 
     @Test
-    public void addNewCredential() {
-
-        login("FirstName", "LastName", "UserName", "password");
+    public void testCredAdd() {
 
         HomePage homePage= new HomePage(driver, 1);
         homePage.credTabNavigation();
-        String url = "http://localhost:8080/home";
+        String url = "http://localhost:8080";
         String userName = "UserName";
         String password = "password";
+
+        //Clear credentialList so that test can be run individually or by class
+        if (!homePage.emptyCredList(driver)){
+            deleteCred(homePage);
+        }
 
         createCred(url, userName,password, homePage);
 
@@ -32,66 +36,71 @@ public class CredentialTest extends LoginTest{
 
         Credential credential = homePage.getCredList();
 
+        //Verify that url, userName and password details in db match the submitted data
         Assertions.assertEquals(url, credential.getUrl());
         Assertions.assertEquals(userName, credential.getUserName());
         Assertions.assertNotEquals(password, credential.getPassword());
 
-        deleteCred(homePage);
         homePage.logout();
     }
 
     @Test
-    public void addCredAndEdit(){
-
-        login("FirstName", "LastName", "UserName", "password");
+    public void testCredEdit(){
 
         HomePage homePage= new HomePage(driver, 1);
         homePage.credTabNavigation();
-        String url = "http://localhost:";
-        String userName = "UserName";
-        String password = "password";
 
-        createCred(url,userName,password, homePage);
+        //Create new credentialList if one does not exist already
+        if (homePage.emptyCredList(driver)){
+            String url = "http://localhost:";
+            String userName = "UserName";
+            String password = "password";
 
-        homePage.credTabNavigation();
+            createCred(url,userName,password, homePage);
+            homePage.credTabNavigation();
+        } else {
+            //Edit an existing credential
+            Credential existingCredential = homePage.getCredList();
+            String existingEncryptedPassword = existingCredential.getPassword();
 
-        Credential originalCredential = homePage.getCredList();
+            String updatedUrl = "http://localhost:8080/login";
+            String updatedUserName = "JPitman";
+            String updatedPassword = "UpdatedPassword";
 
-        String originalEncryptedPassword = originalCredential.getPassword();
+            homePage.credTabNavigation();
 
-        String updatedUrl = "http://localhost:8080/login";
-        String updatedUserName = "JPitman";
-        String updatedPassword = "UpdatedPassword";
+            updateCred(updatedUrl,updatedUserName,updatedPassword, homePage);
 
-        homePage.credTabNavigation();
+            homePage.credTabNavigation();
 
-        updateCred(updatedUrl,updatedUserName,updatedPassword, homePage);
+            Credential updatedCredential = homePage.getCredList();
+            //System.out.println(updatedCredential.getPassword());
 
-        homePage.credTabNavigation();
+            //Verify updated credential details in db match the submitted data
+            Assertions.assertEquals(updatedUrl, updatedCredential.getUrl());
+            Assertions.assertEquals(updatedUserName, updatedCredential.getUserName());
+            //Verify that encrypted version of updated password does not match the encrypted version of the old password
+            Assertions.assertNotEquals(existingEncryptedPassword, updatedCredential.getPassword());
+        }
 
-        Credential updatedCredential = homePage.getCredList();
-
-        Assertions.assertEquals(updatedUrl, updatedCredential.getUrl());
-        Assertions.assertEquals(updatedUserName, updatedCredential.getUserName());
-        Assertions.assertNotEquals(originalEncryptedPassword, updatedCredential.getPassword());
-
-        deleteCred(homePage);
         homePage.logout();
     }
 
     @Test
-    public void deleteCredTest(){
-
-        login("FirstName", "LastName", "UserName", "password");
+    public void testCredDelete(){
 
         HomePage homePage= new HomePage(driver, 1);
         homePage.credTabNavigation();
-        String url = "http://localhost:8080/home";
-        String userName = "UserName";
-        String password = "password";
 
-        createCred(url, userName, password, homePage);
-        homePage.credTabNavigation();
+        //create a credential if one does not already exist
+        if (homePage.emptyCredList(driver)){
+            String url = "http://localhost:8080/home";
+            String userName = "UserName";
+            String password = "password";
+
+            createCred(url, userName, password, homePage);
+            homePage.credTabNavigation();
+        }
 
         Assertions.assertFalse(homePage.emptyCredList(driver));
 
@@ -126,7 +135,4 @@ public class CredentialTest extends LoginTest{
         ResultPage resultPage = new ResultPage(driver, 1);
         resultPage.clickCredEditSuccess();
     }
-
-
-
 }
