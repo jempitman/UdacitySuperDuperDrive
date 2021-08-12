@@ -25,6 +25,14 @@ public class SignupTest {
     public void beforeEach() {
         this.driver = new ChromeDriver();
         baseURL = ("http://localhost:" + this.port);
+
+        driver.get(baseURL + "/signup");
+        SignupPage signupPage = new SignupPage(driver,1);
+        signupPage.signUp("firstname", "lastname", "username", "password");
+
+        driver.get(baseURL + "/login");
+        LoginPage loginPage = new LoginPage(driver, 1);
+        loginPage.login("username", "password");
     }
 
     @AfterEach
