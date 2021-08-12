@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Class built on top of LoginTest to perform credential creation, edit and deletion tests
+ * Test class built on top of LoginTest to perform credential creation, edit and
+ * deletion tests
  */
 public class CredentialTest extends LoginTest{
 
@@ -58,30 +59,29 @@ public class CredentialTest extends LoginTest{
 
             createCred(url,userName,password, homePage);
             homePage.credTabNavigation();
-        } else {
-            //Edit an existing credential
-            Credential existingCredential = homePage.getCredList();
-            String existingEncryptedPassword = existingCredential.getPassword();
-
-            String updatedUrl = "http://localhost:8080/login";
-            String updatedUserName = "JPitman";
-            String updatedPassword = "UpdatedPassword";
-
-            homePage.credTabNavigation();
-
-            updateCred(updatedUrl,updatedUserName,updatedPassword, homePage);
-
-            homePage.credTabNavigation();
-
-            Credential updatedCredential = homePage.getCredList();
-            //System.out.println(updatedCredential.getPassword());
-
-            //Verify updated credential details in db match the submitted data
-            Assertions.assertEquals(updatedUrl, updatedCredential.getUrl());
-            Assertions.assertEquals(updatedUserName, updatedCredential.getUserName());
-            //Verify that encrypted version of updated password does not match the encrypted version of the old password
-            Assertions.assertNotEquals(existingEncryptedPassword, updatedCredential.getPassword());
         }
+
+        Credential existingCredential = homePage.getCredList();
+        String existingEncryptedPassword = existingCredential.getPassword();
+
+        String updatedUrl = "http://localhost:8080/login";
+        String updatedUserName = "JPitman";
+        String updatedPassword = "UpdatedPassword";
+
+        homePage.credTabNavigation();
+
+        updateCred(updatedUrl,updatedUserName,updatedPassword, homePage);
+
+        homePage.credTabNavigation();
+
+        Credential updatedCredential = homePage.getCredList();
+        //System.out.println(updatedCredential.getPassword());
+
+        //Verify updated credential details in db match the submitted data
+        Assertions.assertEquals(updatedUrl, updatedCredential.getUrl());
+        Assertions.assertEquals(updatedUserName, updatedCredential.getUserName());
+        //Verify that encrypted version of updated password does not match the encrypted version of the old password
+        Assertions.assertNotEquals(existingEncryptedPassword, updatedCredential.getPassword());
 
         homePage.logout();
     }
@@ -102,11 +102,13 @@ public class CredentialTest extends LoginTest{
             homePage.credTabNavigation();
         }
 
+        //verify that there is a credential to delete
         Assertions.assertFalse(homePage.emptyCredList(driver));
 
         deleteCred(homePage);
         homePage.credTabNavigation();
 
+        //verify that the credential has been deleted
         Assertions.assertTrue(homePage.emptyCredList(driver));
     }
 
