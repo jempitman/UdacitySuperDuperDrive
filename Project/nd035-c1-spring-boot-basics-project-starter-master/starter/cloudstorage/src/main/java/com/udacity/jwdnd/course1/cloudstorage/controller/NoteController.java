@@ -30,13 +30,18 @@ public class NoteController {
     @PostMapping("add-note")
     public String postNote(@ModelAttribute("noteDTO") NoteDTO noteDTO, Model model){
 
+        String resultMsg;
+
+        if (noteDTO.getNoteId().isEmpty()){
+            resultMsg = "noteNotCreated";
+            model.addAttribute("result", resultMsg);
+        }
+
         boolean newNote = noteService.postNote(noteDTO);
 
         Integer userId = userService.getLoggedInUsersId();
 
-
         model.addAttribute("notes", noteService.getNoteList(userId));
-        String resultMsg;
 
         if (newNote){
             resultMsg = "noteCreated";

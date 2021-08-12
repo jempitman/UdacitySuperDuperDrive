@@ -38,22 +38,27 @@ public class CredentialController {
     public String postCredential(@ModelAttribute("credentialDTO") CredentialDTO credentialDTO, Model model){
 
         //Initialize error message
-        String errorMsg;
+        String resultMsg;
         Integer userId = userService.getLoggedInUsersId();
+
+        if (credentialDTO.getCredentialId().isEmpty()){
+           resultMsg = "credCreationError";
+           model.addAttribute("result", resultMsg);
+        }
 
         //flag to check if credential already exists
         boolean newCred = credentialService.postCredential(credentialDTO);
 
         if(newCred){
-            errorMsg = "credCreated";
+            resultMsg = "credCreated";
             //display creation result page if credential is new
             model.addAttribute("credentials", credentialService.getCredentialList(userId));
             //display credential creation result page
         } else{
-            errorMsg = "credUpdated";
+            resultMsg = "credUpdated";
             //display update result page if credential already exists
         }
-        model.addAttribute("result", errorMsg);
+        model.addAttribute("result", resultMsg);
 
 
         model.addAttribute("encryptionService", encryptionService);
@@ -83,6 +88,7 @@ public class CredentialController {
         //check if ID of credential to be deleted matches an existing credential in the Credentials database
         if (credentialService.lookupCredential(credentialId) && usernameForNote.equals(loggedInUsername)){
             credentialService.deleteCredential(credentialId);
+
             //display credential deleted result page
             resultMsg = "credDeleted";
         } else{
