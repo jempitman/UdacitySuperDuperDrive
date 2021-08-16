@@ -18,7 +18,13 @@
                 <h1 class="display-5">Our apologies.</h1>
                 <p>This page has gone missing! Our engineers are working on it.</p>
                 <p>Please go back to the <a th:href="@{/home}" id = "404Link">homepage</a> to continue using
-                    SuperDuperDrive.</p>
+                    Super-Duper-Drive.</p>
+            </div>
+
+            <div th:if="${error == 'invalidSignup'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Signup Error!</h1>
+                <p>An error occurred while signing you up</p>
+                <p>Please return to the <a th:href="@{/signup}" id = "signupError">signup</a> page</p>
             </div>
 
             <div th:if="${error == 'noteDescCharLimit'}" class="alert alert-danger fill-parent">
@@ -26,6 +32,13 @@
                 <p>Note could not be saved as description exceeds 1000 characters</p>
                 <p>Please go back to the <a th:href="@{/home}" id = "nDescCharLimitLink">homepage</a> to continue using
                     SuperDuperDrive.</p>
+            </div>
+
+            <div th:if="${error == 'fileSizeError'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">2MB file upload size exceeded!</h1>
+                <p>File could not be uploaded. Please select a smaller file</p>
+                <p>Please go back to the <a th:href="@{/home}" id = "fileUploadSizeError">homepage</a> to continue using
+                    Super-Duper-Drive.</p>
             </div>
 
         </div>
