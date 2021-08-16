@@ -9,10 +9,22 @@
     </head>
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container justify-content-center w-50 p-3" style="margin-top: 5em;">
-            <div class="alert alert-danger fill-parent">
+            <div th:if="${error == general}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">General error!</h1>
+                <span>Your changes were not saved. Click <a th:href="@{/home}" id="generalError">here</a>
+                    to return to home.</span>
+            </div>
+            <div th:if="${error == 'notFound'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Our apologies.</h1>
-                <p>Sorry went wrong! Our engineers are working on it.</p>
-                <p>Please go back to the <a th:href="@{/home}" id = "linkSuccess">homepage</a> to continue using
+                <p>This page has gone missing! Our engineers are working on it.</p>
+                <p>Please go back to the <a th:href="@{/home}" id = "404Link">homepage</a> to continue using
+                    SuperDuperDrive.</p>
+            </div>
+
+            <div th:if="${error == 'noteDescCharLimit'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Character limit exceeded!</h1>
+                <p>Note could not be saved as description exceeds 1000 characters</p>
+                <p>Please go back to the <a th:href="@{/home}" id = "nDescCharLimitLink">homepage</a> to continue using
                     SuperDuperDrive.</p>
             </div>
 

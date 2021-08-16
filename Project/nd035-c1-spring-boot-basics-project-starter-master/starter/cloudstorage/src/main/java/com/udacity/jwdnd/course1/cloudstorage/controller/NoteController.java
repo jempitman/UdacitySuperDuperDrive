@@ -30,28 +30,29 @@ public class NoteController {
     @PostMapping("add-note")
     public String postNote(@ModelAttribute("noteDTO") NoteDTO noteDTO, Model model){
 
-        String resultMsg;
+        try{
+            String resultMsg;
 
-        if (noteDTO.getNoteId().isEmpty()){
-            resultMsg = "noteNotCreated";
+            boolean newNote = noteService.postNote(noteDTO);
+            Integer userId = userService.getLoggedInUsersId();
+
+            model.addAttribute("notes", noteService.getNoteList(userId));
+
+            if (newNote){
+                resultMsg = "noteCreated";
+
+            } else{
+                resultMsg = "noteUpdated";
+            }
             model.addAttribute("result", resultMsg);
+
+        } catch (Exception e){
+            System.out.println("character limit exceeded");
+            model.addAttribute("error", "noteDescCharLimit");
+            return "error";
+
         }
 
-        boolean newNote = noteService.postNote(noteDTO);
-
-        Integer userId = userService.getLoggedInUsersId();
-
-        model.addAttribute("notes", noteService.getNoteList(userId));
-
-        if (newNote){
-            resultMsg = "noteCreated";
-
-        } else{
-            resultMsg = "noteUpdated";
-        }
-        model.addAttribute("result", resultMsg);
-
-        System.out.println();
         return "result";
 
     }
