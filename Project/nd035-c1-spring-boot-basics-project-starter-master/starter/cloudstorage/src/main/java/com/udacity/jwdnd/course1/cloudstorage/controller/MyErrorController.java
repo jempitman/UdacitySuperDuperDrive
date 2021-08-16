@@ -27,7 +27,8 @@ public class MyErrorController implements ErrorController {
             } else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()){
                 System.out.println("500 error");
                 model.addAttribute("error", "general");
-
+            } else if(statusCode == HttpStatus.FORBIDDEN.value()){
+                model.addAttribute("error", "fileUploadSize");
             }
         }
 

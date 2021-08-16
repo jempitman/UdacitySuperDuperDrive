@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -47,40 +48,49 @@ public class FileController {
     public String uploadNewFile(Authentication authentication, Model model,
                                 @ModelAttribute("fileDTO")MultipartFile file) throws IOException{
 
-        //Initializing the result message
-        String resultMsg = null;
+       try{
+            //Initializing the result message
+            String resultMsg = null;
 
-        //fetch current UserId
-        int currentUserId = this.userService.getLoggedInUsersId();
+            //fetch current UserId
+            int currentUserId = this.userService.getLoggedInUsersId();
 
-        //1. checking for duplicity
-        boolean duplicateFile = fileService.duplicityCheck(file, currentUserId);
+            //1. checking for duplicity
+            boolean duplicateFile = fileService.duplicityCheck(file, currentUserId);
 
-        //Edge case handling
-        //2. checking for empty file upload
-        if (file.isEmpty()) {
-            resultMsg = "emptyFile";
-            model.addAttribute("result", resultMsg);
-        } else if (duplicateFile){
-            resultMsg = "duplicateFile";
-            model.addAttribute("result", resultMsg);
-        }
-
-        if (resultMsg == null){
-            //upload file to database by fileId:
-            //return current fileId if successful:
-            int currentFileId = this.fileService.uploadFile(file, currentUserId);
-            model.addAttribute("result", "uploadSuccess");
-
-            //3. Checking if fileId is non-negative
-            if (currentFileId <0){
-                resultMsg = "uploadError";
+            //Edge case handling
+            //2. checking for empty file upload
+            if (file.isEmpty()) {
+                resultMsg = "emptyFile";
+                model.addAttribute("result", resultMsg);
+            } else if (duplicateFile){
+                resultMsg = "duplicateFile";
+                model.addAttribute("result", resultMsg);
             }
-        } else{
-            model.addAttribute("result", resultMsg);
+
+            if (resultMsg == null){
+                //upload file to database by fileId:
+                //return current fileId if successful:
+                int currentFileId = this.fileService.uploadFile(file, currentUserId);
+                model.addAttribute("result", "uploadSuccess");
+
+                //3. Checking if fileId is non-negative
+                if (currentFileId <0){
+                    resultMsg = "uploadError";
+                }
+            } else{
+                model.addAttribute("result", resultMsg);
+            }
+
+        } catch (MaxUploadSizeExceededException e){
+
+                model.addAttribute("error", "fileSizeError");
+                return "error";
         }
 
         return "result";
+
+
     }
 
     //Delete file from database based on fileId
