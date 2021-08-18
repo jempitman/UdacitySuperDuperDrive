@@ -78,4 +78,25 @@ public class NoteService {
         return noteMapper.getNote(noteId)!=null;
     }
 
+    public boolean duplicateNoteCheck(NoteDTO noteDTO, int userId){
+        boolean duplicateNote = false;
+
+        String noteTitle = noteDTO.getNoteTitle();
+        String noteDescription = noteDTO.getNoteDescription();
+
+        List<Note> noteList = getNoteList(userId);
+
+        for (Note note : noteList){
+            assert noteTitle != null;
+            if (noteTitle.equals(note.getNoteTitle())){
+                if (noteDescription.equals(note.getNoteDescription())){
+                    duplicateNote = true;
+                    //System.out.println("duplicate Note found");
+                    break;
+                }
+            }
+        }
+        return duplicateNote;
+    }
+
 }

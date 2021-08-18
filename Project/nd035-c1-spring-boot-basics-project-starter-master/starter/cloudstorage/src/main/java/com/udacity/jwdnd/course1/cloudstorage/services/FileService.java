@@ -50,11 +50,11 @@ public class FileService {
     }
 
     //check for file duplicity
-    public boolean duplicityCheck(MultipartFile file, int userid){
+    public boolean duplicityCheck(MultipartFile file, int userId){
 
         boolean duplicateFile = false;
         String fileName = file.getOriginalFilename();
-        List<FileData> fileList = getAllFiles(userid);
+        List<FileData> fileList = getAllFiles(userId);
 
         //search through file list for files with the same name
         for (FileData fileData : fileList) {

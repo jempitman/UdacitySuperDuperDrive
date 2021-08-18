@@ -32,9 +32,18 @@ public class NoteController {
 
         try{
             String resultMsg;
+            int userId = userService.getLoggedInUsersId();
+
+            boolean duplicateNote = noteService.duplicateNoteCheck(noteDTO, userId);
+
+            if (duplicateNote){
+                String errorMsg = "duplicateNote";
+                model.addAttribute("error", errorMsg);
+                return "error";
+            }
 
             boolean newNote = noteService.postNote(noteDTO);
-            Integer userId = userService.getLoggedInUsersId();
+
 
             model.addAttribute("notes", noteService.getNoteList(userId));
 
