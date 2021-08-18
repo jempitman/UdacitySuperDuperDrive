@@ -14,11 +14,6 @@
                 <span>Our engineers are working on it. Click <a th:href="@{/home}" id="generalError">here</a>
                     to return to home.</span>
             </div>
-            <div th:if="${error == 'duplicateNote'}" class="alert alert-danger fill-parent">
-                <h1 class="display-5">Duplicate Note!</h1>
-                <span>A note with those details already exists!</span>
-                <span>Click <a th:href="@{/home}" id="duplicateNoteError">here</a> to continue.</span>
-            </div>
             <div th:if="${error == 'notFound'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Our apologies.</h1>
                 <p>This page has gone missing!</p>
