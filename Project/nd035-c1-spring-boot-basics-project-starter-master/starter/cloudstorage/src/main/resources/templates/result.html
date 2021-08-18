@@ -29,7 +29,8 @@
             </div>
             <div th:if="${result == 'duplicateNote'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Duplicate Note!</h1>
-                <span>A note with those details already exists!</span>
+                <span>Your note was not saved because another note with the same title and description already
+                    exists!</span>
                 <span>Click <a th:href="@{/home}" id="duplicateNoteError">here</a> to continue.</span>
             </div>
             <div th:if="${result == 'noteNotCreated'}" class="alert alert-danger fill-parent">
@@ -61,7 +62,7 @@
             </div>
             <div th:if="${result == 'duplicateUsername'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Duplicate Username!</h1>
-                <span>A credential with that username already exists!</span>
+                <span>Your credential was not saved because another credential with the same username already exists!</span>
                 <span>Click <a th:href="@{/home}" id="duplicateCredError">here</a> to return to home.</span>
             </div>
             <div th:if="${result == 'credCreationError'}" class="alert alert-danger fill-parent">
