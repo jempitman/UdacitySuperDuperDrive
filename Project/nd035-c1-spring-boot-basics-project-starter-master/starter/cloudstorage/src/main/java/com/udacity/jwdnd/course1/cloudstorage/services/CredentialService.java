@@ -1,8 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
+import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
-import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -80,6 +80,23 @@ public class CredentialService {
 
     public boolean lookupCredential(Integer credentialId){
         return credentialMapper.getCredential(credentialId)!=null;
+    }
+
+    public boolean duplicateUsernameCheck(CredentialDTO credDTO, int userId){
+
+        boolean duplicateUsername = false;
+        String credUsername = credDTO.getUserName();
+        List<CredentialDTO> credentialDTOList = getCredentialList(userId);
+
+        for (CredentialDTO credentialDTO : credentialDTOList){
+            assert credUsername != null;
+            if (credUsername.equals(credentialDTO.getUserName())){
+                duplicateUsername = true;
+                //System.out.println("duplicate Note found");
+                break;
+            }
+        }
+        return duplicateUsername;
     }
 
 }

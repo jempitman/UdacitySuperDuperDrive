@@ -39,11 +39,16 @@ public class CredentialController {
 
         //Initialize error message
         String resultMsg;
-        Integer userId = userService.getLoggedInUsersId();
+        int userId = userService.getLoggedInUsersId();
 
         if (credentialDTO.getCredentialId().isEmpty()){
            resultMsg = "credCreationError";
            model.addAttribute("result", resultMsg);
+        }
+
+        if (credentialService.duplicateUsernameCheck(credentialDTO, userId)){
+            model.addAttribute("result", "duplicateUsername");
+            return "result";
         }
 
         //flag to check if credential already exists

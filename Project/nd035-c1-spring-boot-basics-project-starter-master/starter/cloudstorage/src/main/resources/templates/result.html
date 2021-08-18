@@ -59,6 +59,11 @@
                 <span>Your credential was created successfully!</span>
                 <span>Click <a th:href="@{/home}" id="cCreationSuccess">here</a> to continue.</span>
             </div>
+            <div th:if="${result == 'duplicateUsername'}" class="alert alert-danger fill-parent">
+                <h1 class="display-5">Duplicate Username!</h1>
+                <span>A credential with that username already exists!</span>
+                <span>Click <a th:href="@{/home}" id="duplicateCredError">here</a> to return to home.</span>
+            </div>
             <div th:if="${result == 'credCreationError'}" class="alert alert-danger fill-parent">
                 <h1 class="display-5">Credential creation failed! </h1>
                 <span>Credential was not created due to an error. Click <a th:href="@{/home}">here</a> to continue.</span>

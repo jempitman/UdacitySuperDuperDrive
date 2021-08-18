@@ -66,11 +66,11 @@ public class HomeController {
             //fetch file, note and credential lists from db
             List<Note> noteList = this.noteService.getNoteList(userId);
             List<FileData> fileList = this.fileService.getAllFiles(userId);
-            List<CredentialDTO> credentialList = this.credentialService.getCredentialList(userId);
+            List<CredentialDTO> credentialDTOList = this.credentialService.getCredentialList(userId);
 
             //Update file, note and credential lists on HomePage
             model.addAttribute("notes", noteList);
-            model.addAttribute("credentials", credentialList);
+            model.addAttribute("credentials", credentialDTOList);
             model.addAttribute("encryptionService",encryptionService);
             model.addAttribute("files", fileList);
 
