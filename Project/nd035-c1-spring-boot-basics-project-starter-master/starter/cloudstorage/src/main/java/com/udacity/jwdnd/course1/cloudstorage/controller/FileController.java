@@ -111,7 +111,11 @@ public class FileController {
 
     //View file
     @GetMapping("/home/file/view/{fileId}")
-    public ResponseEntity<Resource> viewFile(@PathVariable Integer fileId) {
+    public ResponseEntity<Resource> viewFile(@PathVariable Integer fileId, Model model) {
+
+        if (fileId < 0){
+            model.addAttribute("error", "general");
+        }
         //fetching file details according to fileId
         FileData file = fileService.getFileFromFileId(fileId);
 

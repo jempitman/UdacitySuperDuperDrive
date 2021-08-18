@@ -58,20 +58,27 @@ public class HomeController {
     public String getHomePage(EncryptionService encryptionService,
                               Model model){
 
-        //Fetching userId credentials from database
-        int userId = userService.getLoggedInUsersId();
+        try {
 
-        //fetch file, note and credential lists from db
-        List<Note> noteList = this.noteService.getNoteList(userId);
-        List<FileData> fileList = this.fileService.getAllFiles(userId);
-        List<CredentialDTO> credentialList = this.credentialService.getCredentialList(userId);
+            //Fetching userId credentials from database
+            int userId = userService.getLoggedInUsersId();
 
-        //Update file, note and credential lists on HomePage
-        model.addAttribute("notes", noteList);
-        model.addAttribute("credentials", credentialList);
-        model.addAttribute("encryptionService",encryptionService);
-        model.addAttribute("files", fileList);
+            //fetch file, note and credential lists from db
+            List<Note> noteList = this.noteService.getNoteList(userId);
+            List<FileData> fileList = this.fileService.getAllFiles(userId);
+            List<CredentialDTO> credentialList = this.credentialService.getCredentialList(userId);
 
+            //Update file, note and credential lists on HomePage
+            model.addAttribute("notes", noteList);
+            model.addAttribute("credentials", credentialList);
+            model.addAttribute("encryptionService",encryptionService);
+            model.addAttribute("files", fileList);
+
+
+        } catch (org.thymeleaf.exceptions.TemplateInputException e){
+            model.addAttribute("error", "general");
+            return "error";
+        }
         //System.out.println("Going to home page");
         return "home";
     }
