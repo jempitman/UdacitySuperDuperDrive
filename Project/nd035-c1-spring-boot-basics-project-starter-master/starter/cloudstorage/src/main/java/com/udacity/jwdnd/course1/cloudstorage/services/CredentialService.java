@@ -85,16 +85,20 @@ public class CredentialService {
     public boolean duplicateUsernameCheck(CredentialDTO credDTO, int userId){
 
         boolean duplicateUsername = false;
+        String credUrl = credDTO.getUrl();
         String credUsername = credDTO.getUserName();
-        List<CredentialDTO> credentialDTOList = getCredentialList(userId);
+        List<CredentialDTO> credentialList = getCredentialList(userId);
 
-        for (CredentialDTO credentialDTO : credentialDTOList){
+        for (CredentialDTO credential : credentialList){
             assert credUsername != null;
-            if (credUsername.equals(credentialDTO.getUserName())){
-                duplicateUsername = true;
-                //System.out.println("duplicate Note found");
-                break;
+            if (credUrl.equals(credential.getUrl())){
+                if (credUsername.equals(credential.getUserName())){
+                    duplicateUsername = true;
+                    //System.out.println("duplicate credential found");
+                    break;
+                }
             }
+
         }
         return duplicateUsername;
     }
