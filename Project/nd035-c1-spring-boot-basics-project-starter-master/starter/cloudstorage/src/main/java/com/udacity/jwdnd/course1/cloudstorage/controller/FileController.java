@@ -6,6 +6,7 @@ import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -117,9 +118,11 @@ public class FileController {
         //create new ByteArrayResource to read data from uploaded file
         ByteArrayResource resource = new ByteArrayResource(file.getFileData());
         //fetch file details from ByteArrayResource
-        return ResponseEntity.ok()
-                .contentLength(file.getFileSize())
-                .contentType(MediaType.valueOf(file.getContentType()))
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.parseMediaType(file.getContentType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment;filename=\"" + file.getFileName() + "\"")
                 .body(resource);
     }
 
