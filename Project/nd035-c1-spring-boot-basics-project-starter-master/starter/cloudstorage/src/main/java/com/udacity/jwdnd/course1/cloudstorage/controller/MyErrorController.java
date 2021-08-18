@@ -22,10 +22,10 @@ public class MyErrorController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()){
-                System.out.println("404 Error");
+                //System.out.println("404 Error");
                 model.addAttribute("error", "notFound");
             } else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()){
-                System.out.println("500 error");
+                //System.out.println("500 error");
                 model.addAttribute("error", "general");
             } else if(statusCode == HttpStatus.FORBIDDEN.value()){
                 model.addAttribute("error", "fileUploadSize");
